@@ -1,0 +1,1484 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Revisão Final Exato UFT 2026</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2D6A4F; --green-soft:#E7F1EB; --green-line:#B9D7C6;
+  --orange:#B44D12; --orange-soft:#FBEEE4; --orange-line:#EBC3A6;
+  --blue:#4A6FA5; --blue-soft:#E9EFF7; --blue-line:#BCCDE3;
+  --bg:#FAFAF8; --card:#FFFFFF; --text:#1A1917; --muted:#5E5C56; --line:#E3E1DA;
+  --side:280px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .6em;color:var(--text)}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.5rem;font-weight:700;color:var(--green);padding-bottom:.35em;border-bottom:2px solid var(--green-line);margin-top:0}
+h3{font-size:1.15rem;font-weight:700;color:var(--green);margin-top:1.8em}
+h4{font-size:1rem;font-weight:700;margin-top:1.4em}
+p{margin:.6em 0}
+ul,ol{padding-left:1.3em;margin:.5em 0}
+li{margin:.25em 0}
+section{scroll-margin-top:72px}
+[id]{scroll-margin-top:72px}
+
+/* sidebar */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--side);background:var(--card);border-right:1px solid var(--line);overflow-y:auto;padding:22px 14px 40px;z-index:60;transition:transform .25s ease}
+.brand{padding:0 8px 14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.brand b{display:block;font-size:1.05rem;color:var(--green);font-weight:800;letter-spacing:-.01em}
+.brand span{font-size:.78rem;color:var(--muted)}
+.nav-group{margin:14px 0 4px;padding:0 8px;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.sidebar a{display:block;padding:7px 10px;border-radius:8px;color:var(--text);text-decoration:none;font-size:.9rem;font-weight:500;border-left:3px solid transparent}
+.sidebar a:hover{background:var(--green-soft)}
+.sidebar a.active{background:var(--green-soft);color:var(--green);font-weight:600;border-left-color:var(--green)}
+.topbar{display:none}
+.scrim{display:none}
+
+/* main */
+main{margin-left:var(--side);padding:32px 36px 100px}
+.wrap{max-width:900px;margin:0 auto}
+.hero{background:var(--green);color:#fff;border-radius:18px;padding:28px 28px 24px;margin-bottom:18px}
+.hero h1{color:#fff;margin:0 0 6px}
+.hero p{margin:0;opacity:.92}
+.tracker{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-bottom:26px}
+.days{text-align:center;padding-right:18px;border-right:1px solid var(--line)}
+.days .n{font-size:2.8rem;font-weight:800;color:var(--orange);line-height:1}
+.days .l{font-size:.8rem;color:var(--muted);font-weight:600;margin-top:4px}
+.prog-label{font-size:.85rem;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;gap:10px}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .3s}
+.tracker small{display:block;color:var(--muted);margin-top:8px;font-size:.78rem}
+
+section.part-head{margin:56px 0 22px;background:var(--green-soft);border:1px solid var(--green-line);border-radius:14px;padding:18px 22px}
+section.part-head h2{border:0;margin:0;padding:0;font-size:1.35rem}
+section.part-head p{margin:.3em 0 0;color:var(--muted);font-size:.92rem}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px 22px;margin:0 0 22px}
+section.block>h2:first-child{margin-bottom:.9em}
+
+/* tables */
+.tw{overflow-x:auto;margin:.8em 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:420px}
+th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:var(--green);color:#fff;font-weight:600}
+tbody tr:nth-child(even) td{background:#FBFBF9}
+
+/* alert boxes */
+.box{border-radius:12px;padding:13px 16px;margin:16px 0;border:1px solid;border-left-width:5px}
+.box>.tag{display:block;font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px}
+.box p{margin:.3em 0}
+.dica{background:var(--orange-soft);border-color:var(--orange-line);border-left-color:var(--orange)}
+.dica>.tag{color:var(--orange)}
+.memo{background:var(--green-soft);border-color:var(--green-line);border-left-color:var(--green)}
+.memo>.tag{color:var(--green)}
+.ex{background:var(--blue-soft);border-color:var(--blue-line);border-left-color:var(--blue)}
+.ex>.tag{color:var(--blue)}
+
+/* details */
+details{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:12px 0;overflow:hidden}
+details>summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;align-items:center;gap:10px;background:#F6F6F2}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸";color:var(--green);font-size:.95rem;transition:transform .15s;flex:none}
+details[open]>summary::before{transform:rotate(90deg)}
+details[open]>summary{border-bottom:1px solid var(--line)}
+details>.in{padding:6px 18px 16px}
+details.gab>summary{background:var(--green-soft);color:var(--green)}
+
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--green-soft);color:var(--green);border:1px solid var(--green-line);margin-left:6px;vertical-align:middle}
+.pill.o{background:var(--orange-soft);color:var(--orange);border-color:var(--orange-line)}
+.pill.b{background:var(--blue-soft);color:var(--blue);border-color:var(--blue-line)}
+
+.formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem;background:#fff;border:1px dashed var(--green);border-radius:8px;padding:10px 14px;margin:8px 0;overflow-x:auto;white-space:nowrap}
+.cols{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mini{border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:#FDFDFB}
+.mini h4{margin:0 0 4px;color:var(--green)}
+.mini p{margin:.2em 0;font-size:.93rem}
+
+.done{display:inline-flex;gap:8px;align-items:center;margin-top:12px;font-size:.85rem;font-weight:600;color:var(--green);cursor:pointer;user-select:none}
+.done input{width:18px;height:18px;accent-color:var(--green)}
+
+/* essay */
+.essay{background:var(--green-soft);border:2px solid var(--green);border-radius:16px;padding:22px 26px;margin:16px 0}
+.essay h3{margin-top:0;text-align:center;color:var(--green)}
+.essay p{text-indent:2em;text-align:justify;margin:.8em 0}
+.essay .leg{font-size:.82rem;color:var(--muted);text-indent:0;text-align:left}
+.k-rep{background:#DCE8F5;border-radius:4px;padding:0 3px}
+.k-tese{background:#F9DDC8;border-radius:4px;padding:0 3px}
+.k-pi{background:#CFE6D8;border-radius:4px;padding:0 3px;font-weight:500}
+.k-con{font-weight:700;color:var(--green)}
+
+/* questions */
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+.q .qh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.q .qn{font-weight:800;color:var(--green);font-size:1.05rem}
+.q blockquote{margin:.6em 0;padding:10px 14px;border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 8px 8px 0;font-size:.95rem}
+.q blockquote p{margin:.3em 0}
+.q .enun{font-weight:600;margin:.7em 0 .4em}
+ol.alts{list-style:upper-alpha;padding-left:1.6em}
+ol.alts li{margin:.45em 0;padding-left:.2em}
+ol.alts li::marker{font-weight:700;color:var(--green)}
+.golink{font-size:.82rem}
+.cap{font-size:.8rem;color:var(--muted)}
+
+@media (max-width:900px){
+  .topbar{display:flex;position:fixed;top:0;left:0;right:0;height:56px;align-items:center;gap:12px;background:var(--card);border-bottom:1px solid var(--line);padding:0 16px;z-index:55}
+  .topbar button{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:1.3rem;line-height:1;cursor:pointer;color:var(--green)}
+  .topbar b{font-size:.95rem;color:var(--green)}
+  .topbar .d{margin-left:auto;font-size:.8rem;font-weight:700;color:var(--orange)}
+  .sidebar{transform:translateX(-102%);box-shadow:none}
+  body.nav-open .sidebar{transform:none;box-shadow:0 0 40px rgba(0,0,0,.25)}
+  body.nav-open .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:58}
+  main{margin-left:0;padding:76px 16px 80px}
+  section.block{padding:20px 16px 16px}
+  h1{font-size:1.55rem}
+  .hero{padding:22px 18px}
+  .tracker{grid-template-columns:1fr;gap:12px}
+  .days{border-right:0;border-bottom:1px solid var(--line);padding:0 0 12px}
+  .cols{grid-template-columns:1fr}
+  .essay{padding:16px 14px}
+  .essay p{text-align:left}
+}
+</style>
+
+<div class="topbar">
+  <button id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  <b>Revisão Final Exato UFT</b>
+  <span class="d" id="topDays">4 dias</span>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<nav class="sidebar" id="sidebar" aria-label="Navegação do guia">
+  <div class="brand"><b>Revisão Final</b><span>Exato UFT 2026 · 18/10/2026</span></div>
+  <a href="#topo">Início e plano de 4 dias</a>
+
+  <div class="nav-group">Parte 1 · Linguagens (peso 4)</div>
+  <a href="#s11">1.1 Interpretação e gêneros</a>
+  <a href="#s12">1.2 Gramática essencial</a>
+  <a href="#s13">1.3 Literatura e obras</a>
+  <a href="#s14">1.4 Artes e cultura do TO</a>
+  <a href="#s15">1.5 Língua inglesa</a>
+
+  <div class="nav-group">Parte 2 · Ciências da Natureza (peso 1)</div>
+  <a href="#s21">2.1 Física</a>
+  <a href="#s22">2.2 Química</a>
+  <a href="#s23">2.3 Biologia</a>
+
+  <div class="nav-group">Parte 3 · Redação</div>
+  <a href="#s31">3.1 Estrutura e conectivos</a>
+  <a href="#s32">3.2 Os 3 macrotemas</a>
+  <a href="#s33">3.3 Modelo coringa</a>
+  <a href="#s34">3.4 Repertório universal</a>
+
+  <div class="nav-group">Parte 4 · Treino</div>
+  <a href="#q-ling">Questões 1 a 10 · Linguagens</a>
+  <a href="#q-cn">Questões 11 a 20 · Ciências</a>
+  <a href="#q-obras">Questões 21 a 25 · Obras</a>
+  <a href="#q-inter">Questões 26 a 30 · Mistas</a>
+  <a href="#gabarito">Gabarito comentado</a>
+</nav>
+
+<main id="topo">
+<div class="wrap">
+
+<header class="hero">
+  <h1>Revisão Final · Exato UFT 2026</h1>
+  <p>Tudo o que fica de fora de Matemática e Humanas: Linguagens, Ciências da Natureza e Redação, mais 30 questões com gabarito comentado.</p>
+</header>
+
+<div class="tracker" aria-label="Progresso">
+  <div class="days"><div class="n" id="daysN">4</div><div class="l" id="daysL">Dias até a prova: 4</div></div>
+  <div>
+    <div class="prog-label"><span>Seções revisadas</span><span id="progTxt">0 de 0</span></div>
+    <div class="bar"><i id="progBar"></i></div>
+    <small>Marque a caixa no fim de cada seção quando terminar. O progresso fica salvo neste navegador.</small>
+  </div>
+</div>
+
+<details open>
+  <summary>Plano sugerido para os 4 dias</summary>
+  <div class="in">
+    <ul>
+      <li><strong>Dia 1:</strong> Parte 1 inteira (Linguagens tem peso 4, então é onde a nota mais rende). Dê atenção especial à gramática e às duas obras.</li>
+      <li><strong>Dia 2:</strong> Parte 3 (Redação): leia o modelo coringa em voz alta e treine escrever uma introdução e uma proposta de intervenção do zero.</li>
+      <li><strong>Dia 3:</strong> Parte 2 (Ciências da Natureza, só o essencial) e as questões 1 a 20 com cronômetro.</li>
+      <li><strong>Dia 4:</strong> Questões 21 a 30, revisão dos erros e leitura leve das caixas verdes (MEMORIZE). Durma bem, sem conteúdo novo.</li>
+    </ul>
+  </div>
+</details>
+
+<div class="box dica">
+  <span class="tag">Dica de prova</span>
+  <p>Este guia é uma revisão estratégica, não um substituto do edital. As informações sobre as duas obras indicadas vêm de materiais de divulgação e resenhas. Se sobrar tempo, leia pelo menos o poema "Declaração de amor no Tocantins" e o conto "Samarica enroladeira de pito", porque o contato direto com o texto vale mais do que qualquer resumo.</p>
+</div>
+
+<!-- ============ PARTE 1 ============ -->
+<section class="part-head" id="parte1">
+  <h2>Parte 1 · Linguagens, Códigos e suas Tecnologias</h2>
+  <p>Peso 4. Interpretação, gramática, literatura, artes e inglês.</p>
+</section>
+
+<section class="block" id="s11">
+  <h2>1.1 Interpretação de texto e gêneros textuais</h2>
+
+  <h3>Tipos textuais</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Tipo</th><th>Como funciona</th><th>Exemplos</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Narrativo</strong></td><td>Conta uma história, com personagens, tempo, espaço e enredo.</td><td>Contos, romances, crônicas</td></tr>
+      <tr><td><strong>Descritivo</strong></td><td>Caracteriza pessoas, objetos e lugares, "pintando" com palavras.</td><td>Retratos, descrições de cenários</td></tr>
+      <tr><td><strong>Dissertativo-argumentativo</strong></td><td>Defende uma tese com argumentos.</td><td>Editorial, artigo de opinião, a redação do Exato</td></tr>
+      <tr><td><strong>Expositivo</strong></td><td>Apresenta informações, conceitos e dados, sem defender posição.</td><td>Verbete, reportagem, artigo científico</td></tr>
+      <tr><td><strong>Injuntivo</strong></td><td>Instrui, orienta uma ação, com verbos no imperativo ou infinitivo.</td><td>Manual, receita, bula de remédio</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Gêneros textuais mais cobrados</h3>
+  <p>Artigo de opinião, editorial, crônica, carta argumentativa, charge, tirinha, infográfico, reportagem, entrevista e resenha. Em charges e tirinhas, o humor quase sempre vem da <strong>ironia</strong> ou do <strong>duplo sentido</strong>, e a crítica social está no que o desenho mostra, não só no que a fala diz.</p>
+
+  <h3>Funções da linguagem (Jakobson)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Função</th><th>Foco</th><th>Onde aparece</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Referencial</strong> (denotativa)</td><td>O assunto, o referente</td><td>Notícias, textos científicos</td><td>"O Tocantins foi criado em 1988."</td></tr>
+      <tr><td><strong>Emotiva</strong> (expressiva)</td><td>O emissor e seus sentimentos</td><td>Poesia lírica, diários</td><td>"Que saudade imensa!"</td></tr>
+      <tr><td><strong>Conativa</strong> (apelativa)</td><td>O receptor: convencer, mandar</td><td>Propagandas, discursos</td><td>"Vote consciente!"</td></tr>
+      <tr><td><strong>Fática</strong></td><td>O canal de comunicação</td><td>Conversas, telefonemas</td><td>"Alô?", "Entendeu?", "Né?"</td></tr>
+      <tr><td><strong>Metalinguística</strong></td><td>O código: a língua falando da língua</td><td>Dicionário, gramática</td><td>"Poesia é a arte da palavra."</td></tr>
+      <tr><td><strong>Poética</strong></td><td>A mensagem, sua forma estética</td><td>Poemas, trocadilhos, slogans</td><td>"Tomou Doril, a dor sumiu."</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box memo"><span class="tag">Memorize</span><p>Truque rápido: <strong>1ª pessoa</strong> = emotiva; <strong>2ª pessoa e imperativo</strong> = conativa; <strong>3ª pessoa e dados</strong> = referencial; <strong>"alô, tá me ouvindo?"</strong> = fática; <strong>texto sobre texto/código</strong> = metalinguística; <strong>beleza da forma</strong> = poética.</p></div>
+
+  <h3>Figuras de linguagem mais cobradas</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Figura</th><th>O que é</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Metáfora</strong></td><td>Comparação implícita, sem conectivo</td><td>"A vida é um palco."</td></tr>
+      <tr><td><strong>Comparação</strong> (símile)</td><td>Comparação explícita com "como", "tal qual"</td><td>"Forte como um touro."</td></tr>
+      <tr><td><strong>Metonímia</strong></td><td>Troca de um termo por outro relacionado (autor/obra, parte/todo, continente/conteúdo)</td><td>"Li Machado de Assis" (= li a obra dele)</td></tr>
+      <tr><td><strong>Ironia</strong></td><td>Dizer o contrário do que se pensa</td><td>"Que lindo, chegou atrasado de novo!"</td></tr>
+      <tr><td><strong>Hipérbole</strong></td><td>Exagero expressivo</td><td>"Chorei rios de lágrimas."</td></tr>
+      <tr><td><strong>Eufemismo</strong></td><td>Suavizar uma expressão dura</td><td>"Ele partiu" (= morreu)</td></tr>
+      <tr><td><strong>Antítese</strong></td><td>Oposição de palavras ou ideias</td><td>"Ontem era riso, hoje é pranto."</td></tr>
+      <tr><td><strong>Paradoxo</strong></td><td>Ideias contraditórias que coexistem, formando uma contradição aparente</td><td>"Amor é fogo que arde sem se ver" (Camões)</td></tr>
+      <tr><td><strong>Personificação</strong> (prosopopeia)</td><td>Qualidades humanas dadas a seres inanimados ou irracionais</td><td>"O vento sussurrava."</td></tr>
+      <tr><td><strong>Onomatopeia</strong></td><td>Reprodução de sons</td><td>"O tic-tac do relógio."</td></tr>
+      <tr><td><strong>Aliteração</strong></td><td>Repetição de sons consonantais</td><td>"O rato roeu a roupa do rei de Roma."</td></tr>
+      <tr><td><strong>Anáfora</strong></td><td>Repetição de palavras no início de versos ou frases</td><td>"É fome. É sede. É cansaço."</td></tr>
+      <tr><td><strong>Gradação</strong></td><td>Sequência crescente ou decrescente</td><td>"Olhou, viu, conquistou."</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box ex"><span class="tag">Exemplo</span><p>Antítese x paradoxo: a antítese apenas <em>coloca lado a lado</em> ideias opostas ("riso" e "pranto"). O paradoxo afirma algo que parece <em>impossível</em> ao mesmo tempo ("fogo que arde sem se ver").</p></div>
+
+  <h3>Intertextualidade</h3>
+  <ul>
+    <li><strong>Citação:</strong> reprodução literal de outro texto, geralmente entre aspas.</li>
+    <li><strong>Paráfrase:</strong> reescrita com outras palavras, mantendo o sentido (dialoga, concorda).</li>
+    <li><strong>Paródia:</strong> imitação cômica ou crítica de uma obra, invertendo o sentido (dialoga, contraria). Ex.: o "Canto de regresso à pátria", de Oswald de Andrade, parodia a "Canção do exílio".</li>
+    <li><strong>Alusão:</strong> referência indireta a outra obra, pessoa ou fato, sem citar diretamente.</li>
+  </ul>
+
+  <div class="box dica"><span class="tag">Dica de prova</span><p>A maioria das questões de Linguagens no ENEM e no Exato é de INTERPRETAÇÃO. Leia o texto com atenção, identifique a tese central e elimine alternativas que distorcem ou extrapolam o que o texto diz. Cuidado com palavras absolutas nas alternativas: "sempre", "nunca", "apenas", "todos".</p></div>
+  <label class="done"><input type="checkbox" data-sec="s11"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s12">
+  <h2>1.2 Gramática essencial</h2>
+
+  <h3>Concordância verbal</h3>
+  <p>O verbo concorda com o sujeito em número e pessoa. Os casos que mais caem:</p>
+  <ul>
+    <li><strong>Sujeito composto antes do verbo:</strong> plural. "João e Maria <strong>SAÍRAM</strong>."</li>
+    <li><strong>Sujeito composto depois do verbo:</strong> plural ou concorda com o mais próximo. "<strong>Saiu/Saíram</strong> João e Maria."</li>
+    <li><strong>Expressões partitivas</strong> (a maioria de, grande parte de): singular ou plural. "A maioria dos alunos <strong>PASSOU/PASSARAM</strong>."</li>
+    <li><strong>Sujeito coletivo:</strong> singular. "A turma <strong>SAIU</strong>."</li>
+    <li><strong>HAVER</strong> no sentido de existir: sempre 3ª pessoa do singular. "<strong>HAVIA</strong> muitas pessoas." (nunca "Haviam muitas pessoas")</li>
+    <li><strong>FAZER</strong> indicando tempo: impessoal, singular. "<strong>FAZ</strong> dois anos que..." (nunca "Fazem dois anos")</li>
+    <li><strong>Pronome "se":</strong> apassivador concorda com o sujeito ("<strong>Vendem-se</strong> casas"); índice de indeterminação fica no singular ("<strong>Precisa-se</strong> de funcionários").</li>
+  </ul>
+  <div class="box memo"><span class="tag">Memorize</span><p>HAVER (existir) e FAZER (tempo) são impessoais: <strong>nunca vão para o plural</strong>. "Havia dois candidatos", "Fazia dez anos".</p></div>
+
+  <h3>Concordância nominal</h3>
+  <ul>
+    <li>O adjetivo concorda com o substantivo em gênero e número.</li>
+    <li><strong>Adjetivo posposto a dois substantivos:</strong> concorda com o mais próximo ou vai ao plural. "Camisa e calça <strong>preta</strong>" ou "Camisa e calça <strong>pretas</strong>".</li>
+    <li><strong>É proibido / É necessário / É bom:</strong> sem artigo, ficam invariáveis ("É proibido entrada"). Com artigo, concordam ("É proibid<strong>a</strong> a entrada").</li>
+    <li><strong>BASTANTE:</strong> adjetivo (variável) = suficiente: "Temos provas <strong>bastantes</strong>." Advérbio (invariável) = muito: "Estudei <strong>bastante</strong>."</li>
+    <li><strong>MEIO:</strong> como advérbio (= um pouco) é <strong>invariável</strong>: "Ela está <strong>meio</strong> cansada." Como numeral (= metade) é variável: "meio-dia e <strong>meia</strong> hora".</li>
+    <li><strong>ANEXO, INCLUSO, PRÓPRIO, OBRIGADO:</strong> concordam com o substantivo ou com quem fala. "Segue <strong>anexa</strong> a planilha." "Ela disse <strong>obrigada</strong>."</li>
+  </ul>
+
+  <h3>Regência verbal (os verbos mais cobrados)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Verbo</th><th>Regra</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Assistir</strong></td><td>Ver = pede <strong>a</strong>. Ajudar = direto.</td><td>"Assisti <strong>ao</strong> jogo." / "O médico assistiu o paciente."</td></tr>
+      <tr><td><strong>Visar</strong></td><td>Almejar = pede <strong>a</strong>. Mirar ou assinar = direto.</td><td>"Viso <strong>ao</strong> cargo." / "O gerente visou o cheque."</td></tr>
+      <tr><td><strong>Obedecer / Desobedecer</strong></td><td>Sempre com <strong>a</strong>.</td><td>"Obedeça <strong>ao</strong> regulamento."</td></tr>
+      <tr><td><strong>Preferir</strong></td><td>Prefere-se uma coisa <strong>a</strong> outra (nunca "do que").</td><td>"Prefiro café <strong>a</strong> chá."</td></tr>
+      <tr><td><strong>Namorar</strong></td><td>Transitivo direto.</td><td>"Ela namora Pedro." (não "namora com")</td></tr>
+      <tr><td><strong>Implicar</strong></td><td>Acarretar = direto (nunca "implicar em").</td><td>"A falta implica punição."</td></tr>
+      <tr><td><strong>Aspirar</strong></td><td>Desejar = pede <strong>a</strong>. Respirar = direto.</td><td>"Aspiro <strong>ao</strong> sucesso." / "Aspirei o ar."</td></tr>
+      <tr><td><strong>Ir</strong></td><td><strong>A</strong> = ida e volta (passagem). <strong>Para</strong> = permanência.</td><td>"Fui <strong>a</strong> Palmas e voltei." / "Fui <strong>para</strong> Palmas morar."</td></tr>
+      <tr><td><strong>Chegar</strong></td><td>Prepos. <strong>a</strong> (na norma culta, não "em").</td><td>"Cheguei <strong>a</strong> casa."</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Crase</h3>
+  <p>Crase é a fusão da preposição <strong>a</strong> com o artigo <strong>a(s)</strong> (ou com o <em>a</em> inicial de aquele, aquela, aquilo). Só existe antes de palavras femininas que aceitam artigo.</p>
+  <div class="box ex"><span class="tag">Exemplo</span>
+    <p><strong>Regra da substituição masculina:</strong> troque a palavra feminina por uma masculina. Se aparecer "ao", há crase.</p>
+    <p>"Fui <strong>à</strong> praia." (Fui <strong>ao</strong> parque.) Há crase.<br>"Vou <strong>a</strong> Palmas." (Venho <strong>de</strong> Palmas.) Sem crase, porque "Palmas" não aceita artigo.<br>Macete: "Volto <strong>da</strong>..." então "vou <strong>à</strong>...". "Volto <strong>de</strong>..." então "vou <strong>a</strong>...". Ex.: "Volto <strong>da</strong> Bahia" leva a "Vou <strong>à</strong> Bahia".</p>
+  </div>
+  <div class="cols">
+    <div class="mini"><h4>NUNCA há crase</h4>
+      <p>Antes de palavra masculina ("a pé", "a cavalo").</p>
+      <p>Antes de verbos ("começou a chover").</p>
+      <p>Antes de pronomes pessoais e de tratamento (exceto senhora, senhorita e dona): "falei a ela", "a Vossa Excelência".</p>
+      <p>Com "a" no singular diante de palavra no plural: "a pessoas", "a reuniões".</p>
+      <p>Entre palavras repetidas: "cara a cara", "gota a gota".</p>
+    </div>
+    <div class="mini"><h4>SEMPRE há crase</h4>
+      <p>Locuções femininas: "<strong>às</strong> vezes", "<strong>à</strong> noite", "<strong>às</strong> pressas", "<strong>à</strong> moda de", "<strong>à</strong> medida que".</p>
+      <p>Antes de horas determinadas: "<strong>às</strong> 8 horas".</p>
+      <p>Aquele, aquela, aquilo quando o verbo pede "a": "Refiro-me <strong>àquele</strong> caso."</p>
+      <p>Com "assistir" no sentido de ver: "Assisti <strong>à</strong> palestra."</p>
+    </div>
+  </div>
+  <p><strong>Crase facultativa:</strong> antes de nomes próprios femininos ("Dei o livro <strong>a/à</strong> Maria"), antes de pronomes possessivos femininos ("Refiro-me <strong>a/à</strong> minha mãe") e depois de "até" ("Fui até <strong>a/à</strong> escola").</p>
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Crase e concordância são os temas de gramática MAIS cobrados. Domine a regra da substituição masculina para a crase e nunca erre HAVER e FAZER impessoais.</p></div>
+
+  <h3>Coesão e coerência</h3>
+  <ul>
+    <li><strong>Coesão:</strong> ligação entre as partes do texto, feita por conectivos, pronomes e sinônimos.
+      <ul>
+        <li><em>Referencial:</em> pronomes (ele, este, esse, aquele), sinônimos e expressões que retomam algo já dito.</li>
+        <li><em>Sequencial:</em> conectivos que organizam as ideias (porém, entretanto, além disso, portanto).</li>
+      </ul>
+    </li>
+    <li><strong>Coerência:</strong> sentido lógico do texto, ausência de contradição. Um texto pode ter coesão perfeita e ser incoerente.</li>
+  </ul>
+
+  <h3>Variações linguísticas</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Variação</th><th>Depende de</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Diatópica</strong> (regional)</td><td>Lugar</td><td>"mandioca" (SP), "macaxeira" (NE), "aipim" (RJ); sotaques</td></tr>
+      <tr><td><strong>Diastrática</strong> (social)</td><td>Grupo social, escolaridade, profissão</td><td>Gírias, jargões, linguagem culta x coloquial</td></tr>
+      <tr><td><strong>Diafásica</strong> (situacional)</td><td>Contexto e interlocutor</td><td>Formal no ofício, informal no almoço com colegas</td></tr>
+      <tr><td><strong>Diacrônica</strong> (temporal)</td><td>Época</td><td>"vossa mercê" virou "você"</td></tr>
+    </tbody>
+  </table></div>
+  <p>Importante: não existe variação "errada", apenas variação <strong>inadequada ao contexto</strong>. A norma culta é uma variedade entre várias, exigida em situações formais e na escrita da redação.</p>
+  <div class="box memo"><span class="tag">Memorize</span><p>Preconceito linguístico é considerar uma variante inferior a outra. Todas as variantes são legítimas. O que existe é adequação ao contexto de uso.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s12"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s13">
+  <h2>1.3 Literatura</h2>
+  <h3>Escolas literárias brasileiras (resumo cronológico)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Escola</th><th>Características</th><th>Nomes e obras</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Quinhentismo</strong><br><span class="cap">1500-1601</span></td><td>Literatura de informação (relatos da terra) e catequese jesuítica.</td><td>Pero Vaz de Caminha (Carta); José de Anchieta</td></tr>
+      <tr><td><strong>Barroco</strong><br><span class="cap">1601-1768</span></td><td>Conflito entre razão e fé, dualismo, antíteses, linguagem rebuscada.</td><td>Gregório de Matos, o "Boca do Inferno" (poesia sacra, lírica e satírica); Pe. Antônio Vieira (Sermão da Sexagésima)</td></tr>
+      <tr><td><strong>Arcadismo</strong><br><span class="cap">1768-1836</span></td><td>Volta à simplicidade, pastores idealizados. <em>Fugere urbem</em> (fugir da cidade), <em>carpe diem</em> (aproveitar o dia), <em>locus amoenus</em> (lugar agradável).</td><td>Tomás Antônio Gonzaga (Marília de Dirceu); Cláudio Manuel da Costa</td></tr>
+      <tr><td><strong>Romantismo</strong><br><span class="cap">1836-1881</span></td><td>Subjetividade, nacionalismo, idealização, sentimento. Três gerações (abaixo).</td><td>Gonçalves Dias, José de Alencar, Álvares de Azevedo, Castro Alves</td></tr>
+      <tr><td><strong>Realismo / Naturalismo</strong><br><span class="cap">1881-1893</span></td><td>Crítica social, objetividade, análise psicológica. O Naturalismo acrescenta determinismo e zoomorfismo.</td><td>Machado de Assis (Memórias Póstumas de Brás Cubas, Dom Casmurro: ironia e pessimismo); Aluísio Azevedo (O Cortiço)</td></tr>
+      <tr><td><strong>Parnasianismo</strong><br><span class="cap">1882-1893</span></td><td>"Arte pela arte", perfeição formal, temas clássicos, sonetos impecáveis.</td><td>Olavo Bilac (Via Láctea)</td></tr>
+      <tr><td><strong>Simbolismo</strong><br><span class="cap">1893-1902</span></td><td>Subjetividade, musicalidade, sinestesia, espiritualidade.</td><td>Cruz e Sousa</td></tr>
+      <tr><td><strong>Pré-Modernismo</strong><br><span class="cap">1902-1922</span></td><td>Transição e denúncia social.</td><td>Euclides da Cunha (Os Sertões, Guerra de Canudos); Monteiro Lobato (Jeca Tatu); Lima Barreto (Triste Fim de Policarpo Quaresma)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Romantismo: as três gerações</h4>
+  <ul>
+    <li><strong>1ª geração (indianista e nacionalista):</strong> Gonçalves Dias ("Canção do Exílio"), José de Alencar (Iracema, O Guarani).</li>
+    <li><strong>2ª geração (mal do século, ultrarromântica):</strong> Álvares de Azevedo (Lira dos Vinte Anos), Casimiro de Abreu. Tom sombrio, morte, amor impossível.</li>
+    <li><strong>3ª geração (condoreira e social):</strong> Castro Alves ("O Navio Negreiro", poesia abolicionista).</li>
+  </ul>
+
+  <h4>Modernismo</h4>
+  <ul>
+    <li><strong>1ª fase (1922-1930):</strong> Semana de Arte Moderna (1922), ruptura, experimentação, linguagem coloquial, humor. Oswald de Andrade (Manifesto Antropófago, Pau-Brasil), Mário de Andrade (Macunaíma), Manuel Bandeira.</li>
+    <li><strong>2ª fase (1930-1945):</strong> romance regionalista e denúncia social. Graciliano Ramos (Vidas Secas), Jorge Amado, Rachel de Queiroz; na poesia, Carlos Drummond de Andrade.</li>
+    <li><strong>3ª fase (1945-1960):</strong> Geração de 45 e experimentação formal. João Guimarães Rosa (Grande Sertão: Veredas), Clarice Lispector (A Hora da Estrela).</li>
+    <li><strong>Literatura contemporânea (1960 até hoje):</strong> diversidade de estilos, poesia marginal, literatura periférica, produção feminina e negra. Conceição Evaristo, Paulo Leminski.</li>
+  </ul>
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Em provas como o Exato, a literatura aparece mais em INTERPRETAÇÃO do que em memorização de datas. Saiba associar o estilo de um trecho ao seu período literário (exaltação da natureza e da pátria = Romantismo; "arte pela arte" = Parnasianismo; ironia e crítica social = Realismo).</p></div>
+
+  <h3>Obras indicadas no Exato UFT 2026</h3>
+
+  <details open id="obra-solau">
+    <summary>"Solau do Mal de Amor" · Luiza Helena Oliveira da Silva <span class="pill">Poesia · 2016 · EdUFT</span></summary>
+    <div class="in">
+      <ul>
+        <li><strong>Autora:</strong> professora da UFNT (Araguaína), doutora em Letras, com pós-doutorado em semiótica (CNRS, Paris). Mudou-se para o Tocantins em 2004, vinda de Barra Mansa (RJ). Pesquisa semiótica aplicada ao ensino de linguagem e literatura.</li>
+        <li><strong>Gênero:</strong> poesia. Coletânea de poemas escritos entre 2012 e 2014, com 108 páginas.</li>
+        <li><strong>Temas centrais:</strong> o amor como "mal" que traz felicidade e infelicidade ao mesmo tempo; saudade e solidão; cotidiano e vida comum; a paisagem e o clima do Tocantins como cenário poético.</li>
+        <li><strong>Estilo:</strong> verso livre, linguagem simples, próxima da prosa e da fala coloquial. O ritmo é elemento central. Rejeita musas, visões transcendentes e estéticas rebuscadas. A autora se descreve como "poeta menor", numa alusão a Manuel Bandeira.</li>
+        <li><strong>Poema-chave, "Declaração de amor no Tocantins":</strong> o eu lírico recebe seis pequis como presente de amor, em vez de flores ou vinho. O pequi marca a identidade regional tocantinense e aproxima o amor do cotidiano.</li>
+        <li><strong>Relação com o Tocantins:</strong> vínculo afetivo com o estado, usando elementos da natureza local (pequi, calor, seca, chuva, rios). A crítica acadêmica lê os poemas como "imagem-versos" que constroem uma "comunidade imaginada" (conceito de Benedict Anderson) tocantinense.</li>
+        <li><strong>Frase-chave:</strong> "O Tocantins não é pra meio termo". O estado é lugar de extremos (seca intensa x dilúvios).</li>
+      </ul>
+      <p class="cap">Sobre o título: "solau" é uma cantiga popular de tom lamentoso, ligada ao sertão, o que combina com o "mal de amor" do título.</p>
+      <div class="box memo"><span class="tag">Memorize</span><p>Solau do Mal de Amor: poesia tocantinense, verso livre, temas de amor, saudade e cotidiano, linguagem coloquial, paisagem do Tocantins (pequi, calor, chuva). Autora: Luiza Silva, professora da UFNT.</p></div>
+    </div>
+  </details>
+
+  <details open id="obra-bemtevi">
+    <summary>"Bem-te-vi" · Ernesto Ferreira Silva <span class="pill">Contos · 2015 · EdUFT</span></summary>
+    <div class="in">
+      <ul>
+        <li><strong>Autor:</strong> nascido em Patos de Minas (MG) em 1973. Cresceu na zona rural e mudou-se para o interior do Tocantins em 2009, onde trabalhou como professor. Contista.</li>
+        <li><strong>Gênero:</strong> coletânea de 13 contos, com 183 páginas. Faz parte da Coleção Literatura Tocantinense (vol. 3).</li>
+        <li><strong>Cenário:</strong> sertão do norte de Goiás e Tocantins: Dianópolis, Natividade, Conceição do Norte, Jardim Amarelo e fazendas do interior. Ambientação rural com referências históricas (Belém-Brasília, Constituinte de 1988).</li>
+        <li><strong>Estilo narrativo:</strong> linguagem regional e sertaneja, com vocabulário coloquial e termos inventados. Frases longas e digressivas. Mistura de realismo social com elementos místicos e fantásticos. Humor, ironia e drama convivem. Tom oral, como se alguém contasse histórias.</li>
+        <li><strong>Temas recorrentes:</strong> vida rural, pobreza e sobrevivência no sertão; hierarquias de poder (gênero, raça, classe); memória, nostalgia e peso do passado; sexualidade e passagem para a vida adulta; tensão entre tradição e modernidade.</li>
+        <li><strong>Personagens:</strong> Samarica (menina que fuma escondido), Toé (dono de boteco), Briguello (homem negro que serve uma família influente), Baltazar, Serafim Correia, Almerindo.</li>
+        <li><strong>Comparações literárias:</strong> a editora compara o autor a Cervantes, García Márquez e Machado de Assis (tom quixotesco, realismo mágico, ironia).</li>
+        <li><strong>Epígrafe:</strong> Gaston Bachelard, "A Poética do Espaço". Sugere que o espaço (o sertão) é central na obra.</li>
+      </ul>
+      <h4>Contos-chave</h4>
+      <div class="cols">
+        <div class="mini"><h4>"Samarica enroladeira de pito"</h4><p>Menina do sertão fuma escondido e é punida pelo pai com brasa na língua. Quando o pai fica sem tabaco, ela produz o próprio estoque e inverte a relação de poder.</p><p><strong>Temas:</strong> patriarcado, autonomia, vida rural.</p></div>
+        <div class="mini"><h4>"Boteco do Toé"</h4><p>Conto cômico e de suspense. Almerindo prega uma peça em Tadeu, que vigia um velório.</p><p><strong>Temas:</strong> bravata masculina, amizade, humor cruel.</p></div>
+      </div>
+      <div class="mini" style="margin-top:14px"><h4>"E agora, Briguello?"</h4><p>O conto mais longo. Acompanha a família Constâncio, de Jardim Amarelo, com Briguello como trabalhador e protetor. Trata de hierarquia de classe e raça, da chegada do rádio, das festas religiosas e da partida das filhas para estudar em Goiânia.</p><p><strong>Temas:</strong> raça, classe, nostalgia, modernização.</p></div>
+      <div class="box memo"><span class="tag">Memorize</span><p>Bem-te-vi: contos do sertão tocantinense, 13 histórias, linguagem regional e oral, mistura de realismo e fantasia, temas de poder (gênero, raça, classe), vida rural, nostalgia. Autor: Ernesto Silva, mineiro radicado no Tocantins.</p></div>
+    </div>
+  </details>
+
+  <div class="box ex"><span class="tag">Exemplo</span><p>Como a prova pode usar as obras: um trecho curto de poema ou conto aparece no enunciado e a questão pergunta o <em>tema</em>, o <em>estilo</em> (verso livre, oralidade) ou a <em>relação com o Tocantins</em>. Pense em "palavras-chave": pequi e verso livre para o Solau; sertão, oralidade e poder para o Bem-te-vi.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s13"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s14">
+  <h2>1.4 Artes e cultura do Tocantins</h2>
+
+  <h3>Patrimônio cultural do Tocantins</h3>
+  <ul>
+    <li><strong>Capim dourado do Jalapão:</strong> artesanato tradicional das comunidades da região do Jalapão, com destaque para a comunidade quilombola do Mumbuca (Mateiros). As hastes douradas são costuradas com fios da seda do buriti. É o maior símbolo do artesanato tocantinense. Também aparece na cestaria dos Xerente.</li>
+    <li><strong>Queima do Judas:</strong> tradição popular do Sábado de Aleluia, presente em várias cidades tocantinenses.</li>
+    <li><strong>Festa do Divino:</strong> celebração religiosa popular, especialmente forte em Natividade e Monte do Carmo.</li>
+    <li><strong>Sairé:</strong> festa tradicional da região Norte, de raízes indígenas e caboclas (mais conhecida no Pará).</li>
+    <li><strong>Música e dança:</strong> influências sertanejas, nortistas e nordestinas; catira, xote, forró; a sússia, dança tradicional de origem afro-brasileira do sudeste do estado.</li>
+    <li><strong>Capoeira e bumba-meu-boi:</strong> influências da cultura africana e nordestina.</li>
+  </ul>
+
+  <h3>Linguagens artísticas</h3>
+  <div class="cols">
+    <div class="mini"><h4>Teatro</h4><p>Arte cênica: espaço cênico, dramaturgia, performance.</p></div>
+    <div class="mini"><h4>Música</h4><p>Melodia, harmonia, ritmo, gêneros musicais.</p></div>
+    <div class="mini"><h4>Dança</h4><p>Expressão corporal; danças folclóricas (catira, xote, forró).</p></div>
+    <div class="mini"><h4>Artes visuais</h4><p>Pintura, escultura, fotografia, grafite, arte digital.</p></div>
+  </div>
+
+  <h3>Matrizes culturais brasileiras</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Matriz</th><th>Contribuições</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Indígena</strong></td><td>Arte plumária, pintura corporal, cerâmica, cestaria, música ritual, nomes de lugares e plantas.</td></tr>
+      <tr><td><strong>Africana</strong></td><td>Capoeira, samba, maracatu, candomblé, culinária (acarajé, vatapá).</td></tr>
+      <tr><td><strong>Europeia / portuguesa</strong></td><td>Literatura, arquitetura colonial, festas religiosas, língua portuguesa.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Patrimônio cultural material e imaterial</h3>
+  <ul>
+    <li><strong>Material:</strong> edificações, monumentos, sítios arqueológicos. Ex.: centro histórico de Natividade (TO), tombado pelo IPHAN.</li>
+    <li><strong>Imaterial:</strong> saberes, celebrações e formas de expressão. Ex.: o modo de fazer o capim dourado, as festas tradicionais.</li>
+    <li><strong>IPHAN</strong> (Instituto do Patrimônio Histórico e Artístico Nacional) é o órgão responsável pela preservação no Brasil. A <strong>UNESCO</strong> reconhece o Patrimônio Mundial.</li>
+  </ul>
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Questões de Artes no Exato geralmente conectam cultura a identidade regional. Saiba sobre o capim dourado, as festas tradicionais e as influências culturais do Tocantins. Quando a questão falar de "saber transmitido entre gerações", pense em patrimônio IMATERIAL.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s14"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s15">
+  <h2>1.5 Língua inglesa (essencial)</h2>
+
+  <h3>Estratégia de interpretação</h3>
+  <p>Você não precisa de inglês fluente. Foque em quatro coisas:</p>
+  <ol>
+    <li><strong>Cognatos</strong> (palavras parecidas com o português): important, culture, technology, social, education, information.</li>
+    <li><strong>Palavras-chave repetidas</strong> no texto: elas indicam o tema.</li>
+    <li><strong>Contexto visual:</strong> imagens, gráficos, títulos e legendas.</li>
+    <li><strong>Conectivos:</strong> <em>but</em> (mas), <em>however</em> (entretanto), <em>because</em> (porque), <em>although</em> (embora), <em>therefore</em> (portanto).</li>
+  </ol>
+
+  <h3>Falsos cognatos mais comuns</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Palavra</th><th>Significa</th><th>Não significa</th></tr></thead>
+    <tbody>
+      <tr><td>actually</td><td>na verdade</td><td>atualmente (isso é <em>currently</em>)</td></tr>
+      <tr><td>eventually</td><td>finalmente, por fim</td><td>eventualmente</td></tr>
+      <tr><td>pretend</td><td>fingir</td><td>pretender</td></tr>
+      <tr><td>sensible</td><td>sensato</td><td>sensível (isso é <em>sensitive</em>)</td></tr>
+      <tr><td>push</td><td>empurrar</td><td>puxar (isso é <em>pull</em>)</td></tr>
+      <tr><td>parents</td><td>pais</td><td>parentes (isso é <em>relatives</em>)</td></tr>
+      <tr><td>intend</td><td>pretender</td><td>entender (isso é <em>understand</em>)</td></tr>
+      <tr><td>college</td><td>faculdade</td><td>colégio</td></tr>
+      <tr><td>library</td><td>biblioteca</td><td>livraria (isso é <em>bookstore</em>)</td></tr>
+      <tr><td>fabric</td><td>tecido</td><td>fábrica (isso é <em>factory</em>)</td></tr>
+      <tr><td>realize</td><td>perceber, dar-se conta</td><td>realizar</td></tr>
+      <tr><td>novel</td><td>romance</td><td>novela</td></tr>
+      <tr><td>costume</td><td>fantasia, traje</td><td>costume/hábito (isso é <em>habit</em> ou <em>custom</em>)</td></tr>
+      <tr><td>lecture</td><td>palestra, aula expositiva</td><td>leitura (isso é <em>reading</em>)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Tempos verbais básicos</h3>
+  <ul>
+    <li><strong>Simple Present:</strong> ações habituais. "She <strong>works</strong> every day." / "He <strong>doesn't work</strong>."</li>
+    <li><strong>Simple Past:</strong> ações no passado. "They <strong>worked</strong> yesterday." Irregulares comuns: went, saw, had, made, took.</li>
+    <li><strong>Present Continuous:</strong> ação acontecendo agora. "I <strong>am working</strong> now."</li>
+    <li><strong>Simple Future:</strong> will + verbo. "I <strong>will study</strong> tomorrow."</li>
+    <li><strong>Modal verbs:</strong> <em>can</em> (poder, capacidade), <em>must</em> (dever, obrigação), <em>should</em> (deveria, conselho), <em>may</em> (poder, possibilidade).</li>
+  </ul>
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Em inglês, a maioria das questões é de interpretação. Use cognatos, elimine alternativas absurdas e foque na ideia geral do texto, não em cada palavra. Se uma alternativa tiver palavra absoluta ("only", "never", "all"), desconfie.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s15"> Marcar como revisado</label>
+</section>
+
+<!-- ============ PARTE 2 ============ -->
+<section class="part-head" id="parte2">
+  <h2>Parte 2 · Ciências da Natureza e suas Tecnologias</h2>
+  <p>Peso 1. Resumo estratégico dos temas mais cobrados. Prioridade: Ecologia, Química Ambiental e a eletricidade do dia a dia.</p>
+</section>
+
+<section class="block" id="s21">
+  <h2>2.1 Física: tópicos essenciais</h2>
+
+  <h3>Cinemática</h3>
+  <ul>
+    <li><strong>Velocidade média:</strong> deslocamento dividido pelo tempo.</li>
+    <li><strong>MRU</strong> (Movimento Retilíneo Uniforme): velocidade constante.</li>
+    <li><strong>MRUV</strong> (Movimento Retilíneo Uniformemente Variado): aceleração constante.</li>
+    <li><strong>Queda livre:</strong> a = g ≈ 10 m/s², com V₀ = 0 quando o corpo é solto.</li>
+  </ul>
+  <div class="formula">Vm = ΔS / Δt</div>
+  <div class="formula">MRU:  S = S₀ + v·t</div>
+  <div class="formula">MRUV:  V = V₀ + a·t   |   S = S₀ + V₀·t + (a·t²)/2   |   V² = V₀² + 2·a·ΔS</div>
+  <div class="box ex"><span class="tag">Exemplo</span><p>Um carro parte do repouso com a = 2 m/s². Em 10 s: S = 0 + 0 + (2 · 10²)/2 = <strong>100 m</strong>; V = 0 + 2 · 10 = <strong>20 m/s</strong>.</p></div>
+
+  <h3>Leis de Newton</h3>
+  <ul>
+    <li><strong>1ª Lei (Inércia):</strong> corpo em repouso tende a permanecer em repouso; corpo em movimento tende a permanecer em movimento (em linha reta e com velocidade constante), a menos que uma força atue. É o que joga você para frente quando o ônibus freia.</li>
+    <li><strong>2ª Lei (F = m·a):</strong> força resultante é igual à massa vezes a aceleração. Unidade: Newton (N).</li>
+    <li><strong>3ª Lei (Ação e Reação):</strong> toda ação gera uma reação de mesma intensidade e direção, mas sentido oposto. As forças atuam em corpos DIFERENTES, por isso não se anulam.</li>
+  </ul>
+
+  <h3>Energia</h3>
+  <div class="formula">Ec = (m·v²)/2   |   Ep = m·g·h   |   T = F·d·cos θ   |   P = T / t</div>
+  <ul>
+    <li><strong>Conservação:</strong> em sistemas conservativos, Ec + Ep = constante.</li>
+    <li><strong>Trabalho:</strong> quando F e d são paralelos, T = F·d.</li>
+    <li><strong>Potência:</strong> medida em Watts (W).</li>
+  </ul>
+
+  <h3>Eletricidade</h3>
+  <div class="formula">Lei de Ohm:  U = R·i</div>
+  <div class="formula">Potência:  P = U·i = R·i² = U²/R</div>
+  <div class="formula">Série:  Req = R₁ + R₂ + R₃...   |   Paralelo:  1/Req = 1/R₁ + 1/R₂ + 1/R₃...</div>
+  <div class="formula">Consumo:  E = P·t  (kWh na conta de luz)</div>
+  <div class="box ex"><span class="tag">Exemplo</span><p>Chuveiro de 4400 W usado 30 min por dia, por 30 dias: E = 4,4 kW · 0,5 h · 30 = <strong>66 kWh</strong>. Se o kWh custa R$ 0,90, o gasto é R$ 59,40. Lembre de converter W em kW e minutos em horas.</p></div>
+
+  <h3>Ondas</h3>
+  <div class="formula">V = λ · f   (velocidade = comprimento de onda × frequência)</div>
+  <ul>
+    <li><strong>Som:</strong> onda mecânica, precisa de meio material (não se propaga no vácuo).</li>
+    <li><strong>Luz:</strong> onda eletromagnética, não precisa de meio (viaja no vácuo).</li>
+  </ul>
+  <div class="box memo"><span class="tag">Memorize</span><div class="formula" style="white-space:normal">Vm = ΔS/Δt  |  F = m·a  |  Ec = mv²/2  |  Ep = mgh  |  U = R·i  |  P = U·i</div></div>
+  <label class="done"><input type="checkbox" data-sec="s21"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s22">
+  <h2>2.2 Química: tópicos essenciais</h2>
+
+  <h3>Tabela periódica</h3>
+  <ul>
+    <li>Organizada em <strong>18 grupos</strong> (famílias) e <strong>7 períodos</strong>.</li>
+    <li>Classes: metais (a maioria), ametais, semimetais e gases nobres.</li>
+    <li><strong>Raio atômico</strong> cresce para baixo e para a esquerda.</li>
+    <li><strong>Eletronegatividade</strong> cresce para cima e para a direita (sem contar os gases nobres).</li>
+    <li>Famílias: 1A metais alcalinos (Li, Na, K); 2A alcalinoterrosos; 7A halogênios; 0/8A gases nobres.</li>
+  </ul>
+
+  <h3>Ligações químicas</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Ligação</th><th>Entre</th><th>Característica</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Iônica</strong></td><td>Metal + ametal</td><td>Transferência de elétrons. Sólidos cristalinos, PF e PE altos, conduzem eletricidade <em>dissolvidos</em> ou fundidos (íons livres).</td><td>NaCl (sal de cozinha)</td></tr>
+      <tr><td><strong>Covalente</strong></td><td>Ametal + ametal</td><td>Compartilhamento de elétrons. Podem ser sólidos, líquidos ou gases.</td><td>H₂O, CO₂</td></tr>
+      <tr><td><strong>Metálica</strong></td><td>Metal + metal</td><td>"Mar de elétrons". Condutividade, brilho e maleabilidade.</td><td>Cobre, ferro</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Funções inorgânicas</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Função</th><th>Definição</th><th>Exemplos</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Ácidos</strong></td><td>Liberam H⁺ em água</td><td>HCl (ácido clorídrico), H₂SO₄ (ácido sulfúrico)</td></tr>
+      <tr><td><strong>Bases</strong></td><td>Liberam OH⁻ em água</td><td>NaOH (soda cáustica), Ca(OH)₂ (cal)</td></tr>
+      <tr><td><strong>Sais</strong></td><td>Formados por ácido + base (neutralização)</td><td>NaCl, CaCO₃</td></tr>
+      <tr><td><strong>Óxidos</strong></td><td>Compostos binários com oxigênio</td><td>CO₂ (gás carbônico), Fe₂O₃ (ferrugem)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Química ambiental <span class="pill o">Muito cobrado</span></h3>
+  <ul>
+    <li><strong>Efeito estufa:</strong> CO₂, CH₄ e N₂O retêm calor na atmosfera. O aumento deles pela ação humana (queima de combustíveis fósseis, desmatamento, queimadas, pecuária) causa o aquecimento global.</li>
+    <li><strong>Chuva ácida:</strong> SO₂ e NOx reagem com a água atmosférica e formam H₂SO₄ e HNO₃. Corrói monumentos de mármore (CaCO₃) e acidifica rios e solos. A chuva normal já é levemente ácida (pH ≈ 5,6, por causa do CO₂); chuva ácida tem pH menor que isso.</li>
+    <li><strong>Camada de ozônio:</strong> o O₃ da estratosfera filtra a radiação UV. Os CFCs destroem o ozônio.</li>
+    <li><strong>Poluição da água:</strong> resíduos industriais, agrotóxicos e esgoto. <strong>Eutrofização:</strong> excesso de nutrientes (N e P) gera proliferação de algas; a decomposição consome o oxigênio da água e peixes morrem.</li>
+    <li><strong>Tratamento de água:</strong> captação, coagulação/floculação, decantação, filtração, desinfecção (cloro) e fluoretação.</li>
+  </ul>
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Química ambiental (efeito estufa, chuva ácida, tratamento de água) é o tema mais provável de Química no Exato por se conectar com meio ambiente e Cerrado. Quando a questão trouxer um problema ambiental, ache o <em>poluente</em>, a <em>reação</em> e a <em>consequência</em>.</p></div>
+
+  <h3>Soluções</h3>
+  <div class="formula">Concentração comum:  C = m_soluto / V_solução  (g/L)</div>
+  <div class="formula">Título:  T = m_soluto / m_solução</div>
+  <div class="formula">Molaridade:  M = n_soluto / V_solução  (mol/L)</div>
+  <label class="done"><input type="checkbox" data-sec="s22"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s23">
+  <h2>2.3 Biologia: tópicos essenciais</h2>
+
+  <h3>Ecologia <span class="pill o">Tema mais cobrado em CN</span></h3>
+  <ul>
+    <li><strong>Cadeia alimentar:</strong> produtores (plantas) → consumidores primários (herbívoros) → consumidores secundários (carnívoros) → decompositores.</li>
+    <li><strong>Teia alimentar:</strong> várias cadeias interligadas. <strong>Níveis tróficos:</strong> cada posição na cadeia.</li>
+    <li><strong>Pirâmides ecológicas:</strong> de energia, de biomassa e de números. A de ENERGIA nunca é invertida: só cerca de 10% da energia passa de um nível ao seguinte, e por isso as cadeias são curtas.</li>
+    <li><strong>Ciclos biogeoquímicos:</strong> água, carbono e nitrogênio.</li>
+  </ul>
+
+  <h4>Relações ecológicas</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Tipo</th><th>Relação</th><th>Como funciona</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3"><strong>Harmônicas</strong></td><td>Mutualismo</td><td>Benefício mútuo <em>obrigatório</em> (líquen: alga + fungo)</td></tr>
+      <tr><td>Protocooperação</td><td>Benefício mútuo <em>facultativo</em></td></tr>
+      <tr><td>Comensalismo</td><td>Um se beneficia e o outro fica neutro (orquídea sobre a árvore)</td></tr>
+      <tr><td rowspan="3"><strong>Desarmônicas</strong></td><td>Predação</td><td>Um mata e consome o outro</td></tr>
+      <tr><td>Parasitismo</td><td>Um se beneficia e prejudica o hospedeiro, em geral sem matá-lo logo (carrapato no gado)</td></tr>
+      <tr><td>Competição</td><td>Disputa pelo mesmo recurso (alimento, espaço, luz)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Biomas brasileiros e o Cerrado</h4>
+  <p>Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa e Pantanal. O <strong>Cerrado</strong> é uma savana tropical, chamada de "berço das águas" porque abriga nascentes de grandes bacias (Tocantins-Araguaia, São Francisco, Prata, entre outras). Tem alta biodiversidade, muitas espécies endêmicas e vegetação adaptada ao fogo, com raízes profundas. Está ameaçado pelo avanço agropecuário, em especial na fronteira <strong>MATOPIBA</strong> (Maranhão, Tocantins, Piauí e Bahia), e por queimadas.</p>
+
+  <h3>Citologia básica</h3>
+  <ul>
+    <li><strong>Procarionte:</strong> sem núcleo definido (bactérias); DNA solto no citoplasma.</li>
+    <li><strong>Eucarionte:</strong> com núcleo definido. Célula animal: sem parede celular e sem cloroplasto. Célula vegetal: com parede de celulose, cloroplasto e vacúolo grande.</li>
+    <li><strong>Organelas:</strong> mitocôndria (respiração celular, ATP); ribossomo (síntese de proteínas); complexo de Golgi (secreção); retículo endoplasmático (transporte); lisossomo (digestão).</li>
+  </ul>
+  <div class="formula">Fotossíntese:  6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂   (cloroplastos)</div>
+  <div class="formula">Respiração celular:  C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + ATP   (mitocôndrias)</div>
+
+  <h3>Genética básica</h3>
+  <ul>
+    <li><strong>Gene:</strong> trecho de DNA que codifica uma proteína. <strong>Alelos:</strong> versões de um gene (dominante A, recessivo a).</li>
+    <li><strong>Genótipo:</strong> combinação de alelos (AA, Aa, aa). <strong>Fenótipo:</strong> característica observável (genótipo + ambiente).</li>
+    <li><strong>1ª Lei de Mendel (Segregação):</strong> os alelos se separam na formação dos gametas.</li>
+    <li><strong>Dominância completa:</strong> AA e Aa mostram o fenótipo dominante; só aa mostra o recessivo.</li>
+  </ul>
+  <div class="box ex"><span class="tag">Exemplo</span><p>Cruzamento Aa × Aa: genótipos <strong>1 AA : 2 Aa : 1 aa</strong>; fenótipos <strong>3 dominantes : 1 recessivo</strong> (75% e 25%). Se um casal de pigmentação normal tem filho albino (recessivo), os dois são Aa e a chance de outro filho albino é de 25%.</p></div>
+
+  <h3>Evolução</h3>
+  <ul>
+    <li><strong>Darwin:</strong> seleção natural. A variação já existe ANTES da seleção; os mais adaptados ao ambiente sobrevivem e se reproduzem mais.</li>
+    <li><strong>Lamarck:</strong> lei do uso e desuso e herança de caracteres adquiridos (ideia superada, mas é importante saber a diferença). Para Lamarck, o ambiente CAUSA a mudança.</li>
+  </ul>
+  <div class="box memo"><span class="tag">Memorize</span><p>Ecologia é o tema de Biologia mais provável no Exato: cadeia alimentar, pirâmide de energia, biomas (Cerrado!), relações ecológicas e impactos ambientais.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s23"> Marcar como revisado</label>
+</section>
+
+<!-- ============ PARTE 3 ============ -->
+<section class="part-head" id="parte3">
+  <h2>Parte 3 · Redação</h2>
+  <p>Dissertativo-argumentativa, com repertório e proposta de intervenção. É onde um modelo bem treinado garante pontos.</p>
+</section>
+
+<section class="block" id="s31">
+  <h2>3.1 Estrutura da redação dissertativo-argumentativa</h2>
+  <p>Formato padrão de 4 parágrafos, em torno de 25 a 30 linhas. Confira no edital os limites mínimo e máximo de linhas e os critérios de correção.</p>
+
+  <div class="cols">
+    <div class="mini"><h4>1. Introdução <span class="cap">(5 a 7 linhas)</span></h4>
+      <p>Contextualização do tema com repertório sociocultural (citação, dado, referência histórica).</p>
+      <p>Apresentação da <strong>tese</strong> (seu posicionamento).</p>
+      <p>Indicação dos argumentos (prévia dos dois desenvolvimentos).</p></div>
+    <div class="mini"><h4>2. Desenvolvimento 1 <span class="cap">(7 a 8 linhas)</span></h4>
+      <p><strong>Tópico frasal</strong> que apresenta o primeiro argumento.</p>
+      <p>Fundamentação: dados, exemplos, citações, raciocínio lógico.</p>
+      <p>Conexão com o tema e com a tese.</p></div>
+    <div class="mini"><h4>3. Desenvolvimento 2 <span class="cap">(7 a 8 linhas)</span></h4>
+      <p>Tópico frasal que apresenta o segundo argumento.</p>
+      <p>Fundamentação com <em>perspectiva diferente</em> da do D1.</p>
+      <p>Conexão com o tema e com a tese.</p></div>
+    <div class="mini"><h4>4. Conclusão <span class="cap">(5 a 7 linhas)</span></h4>
+      <p>Retomada da tese, sem repetir ipsis litteris.</p>
+      <p><strong>Proposta de intervenção:</strong> QUEM faz, O QUE faz, COMO faz, POR QUE ou PARA QUE.</p>
+      <p>Fechamento reflexivo.</p></div>
+  </div>
+
+  <h3>Conectivos essenciais</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Ideia</th><th>Conectivos</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Adição</strong></td><td>além disso, outrossim, ademais, não apenas... mas também</td></tr>
+      <tr><td><strong>Oposição</strong></td><td>entretanto, contudo, todavia, não obstante, em contrapartida</td></tr>
+      <tr><td><strong>Causa</strong></td><td>uma vez que, visto que, haja vista que, dado que, porquanto</td></tr>
+      <tr><td><strong>Consequência</strong></td><td>de modo que, por conseguinte, consequentemente, assim</td></tr>
+      <tr><td><strong>Conclusão</strong></td><td>portanto, logo, destarte, em suma, diante do exposto</td></tr>
+      <tr><td><strong>Exemplificação</strong></td><td>por exemplo, a título de exemplo, como evidência disso</td></tr>
+      <tr><td><strong>Tempo</strong></td><td>atualmente, hodiernamente, no cenário contemporâneo</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Use conectivos que você realmente domina. "Haja vista que" e "destarte" mal empregados custam mais do que "pois" e "portanto" bem empregados. Também varie: não comece dois parágrafos com a mesma palavra.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s31"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s32">
+  <h2>3.2 Os 3 macrotemas do Exato UFT 2026</h2>
+
+  <details open>
+    <summary>Macrotema 1 · Meio ambiental: sustentabilidade, clima e modos de produção</summary>
+    <div class="in">
+      <ul>
+        <li>Aquecimento global, desmatamento do Cerrado, MATOPIBA, queimadas.</li>
+        <li>Agronegócio x sustentabilidade, comunidades tradicionais.</li>
+        <li>Acordo de Paris, ODS da ONU, economia verde.</li>
+        <li><strong>Repertório:</strong> a Constituição do Equador (2008), que reconhece a natureza como sujeito de direitos; o conceito de desenvolvimento sustentável do Relatório Brundtland (ONU, 1987): aquele que atende às necessidades do presente sem comprometer a capacidade das gerações futuras de atenderem às suas próprias necessidades.</li>
+      </ul>
+    </div>
+  </details>
+  <details open>
+    <summary>Macrotema 2 · Tecnologia e inovação na sociedade contemporânea</summary>
+    <div class="in">
+      <ul>
+        <li>Inteligência artificial, automação, "uberização" e precarização do trabalho.</li>
+        <li>Fake news, desinformação, bolhas algorítmicas.</li>
+        <li>Exclusão digital e desigualdade no acesso.</li>
+        <li>Privacidade e vigilância digital.</li>
+        <li><strong>Repertório:</strong> a ideia de que a tecnologia deve servir à emancipação das pessoas e não ao controle delas; o conceito de "sociedade de controle" (Gilles Deleuze); a "modernidade líquida" (Zygmunt Bauman), em que relações e instituições se tornam frágeis na era digital.</li>
+      </ul>
+    </div>
+  </details>
+  <details open>
+    <summary>Macrotema 3 · Diversidade cultural, território, povos originários e comunidades tradicionais</summary>
+    <div class="in">
+      <ul>
+        <li>Povos indígenas do Tocantins: Xerente, Krahô, Apinajé, Karajá, Javaé.</li>
+        <li>Comunidades quilombolas e direitos territoriais.</li>
+        <li>Demarcação de terras e conflitos com o agronegócio.</li>
+        <li>Patrimônio cultural material e imaterial.</li>
+        <li><strong>Repertório:</strong> Art. 231 da CF/88 (direitos dos indígenas); Art. 68 do ADCT (terras quilombolas); Declaração Universal sobre a Diversidade Cultural (UNESCO, 2001), que afirma ser a diversidade cultural tão necessária ao gênero humano quanto a diversidade biológica é para os seres vivos.</li>
+      </ul>
+    </div>
+  </details>
+  <div class="box memo"><span class="tag">Memorize</span><p>Os três macrotemas se cruzam no Tocantins: o Cerrado (meio ambiente) é o território dos povos tradicionais (diversidade), e a tecnologia (satélite, internet, redes) pode proteger ou ameaçar os dois. Por isso um único modelo adaptável funciona.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s32"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s33">
+  <h2>3.3 Modelo coringa de redação</h2>
+  <p>Tema do modelo: <strong>"Desafios para a preservação do Cerrado e dos povos tradicionais no Tocantins"</strong>, que toca os três macrotemas. Abaixo, o texto completo. Legenda de cores: <span class="k-rep">repertório</span>, <span class="k-tese">tese</span>, <span class="k-pi">proposta de intervenção</span>.</p>
+
+  <div class="essay">
+    <h3>Desafios para a preservação do Cerrado e dos povos tradicionais no Tocantins</h3>
+    <p><span class="k-rep">Considerado o "berço das águas" do Brasil, o Cerrado abriga nascentes que alimentam bacias como a do Tocantins-Araguaia e sustenta comunidades indígenas e quilombolas que convivem com esse bioma há séculos.</span> <span class="k-con">Entretanto</span>, a expansão agropecuária sobre o território tocantinense, intensificada na fronteira conhecida como Matopiba, ameaça tanto a vegetação nativa quanto os modos de vida que dela dependem. <span class="k-tese">Nesse cenário, a preservação do Cerrado esbarra na primazia do lucro imediato sobre o equilíbrio ambiental e na invisibilização dos povos tradicionais, o que contraria o artigo 225 da Constituição Federal de 1988.</span></p>
+
+    <p><span class="k-con">Em primeiro lugar</span>, o avanço do desmatamento e das queimadas decorre de um modelo de produção que trata a terra como simples mercadoria. A conversão da vegetação nativa em monoculturas e pastagens reduz a biodiversidade, compromete a recarga dos aquíferos e libera dióxido de carbono, o que agrava o aquecimento global. <span class="k-rep">Tal lógica contraria o conceito de desenvolvimento sustentável do Relatório Brundtland (ONU, 1987), segundo o qual o progresso deve atender às necessidades do presente sem comprometer as gerações futuras.</span> <span class="k-con">Soma-se a isso</span> a fiscalização insuficiente, pois a imensidão do território e a dificuldade de acesso favorecem a impunidade dos crimes ambientais.</p>
+
+    <p><span class="k-con">Em segundo lugar</span>, povos como os Xerente, os Krahô, os Apinajé e os Karajá, assim como as comunidades quilombolas do Jalapão, sofrem a pressão sobre seus territórios e a ameaça aos saberes que desenvolveram. <span class="k-rep">A Constituição reconhece, em seu artigo 231, os direitos originários dos indígenas sobre as terras que ocupam, e o artigo 68 do ADCT garante a propriedade das terras quilombolas</span>; <span class="k-con">contudo</span>, a lentidão na demarcação e na titulação fragiliza essas garantias. <span class="k-con">Ademais</span>, a desigualdade tecnológica agrava o quadro: sem internet e sem acesso a dados de monitoramento por satélite, essas comunidades têm menos meios de denunciar invasões do que os grandes produtores têm de ocupar a terra. Ignorar o saber tradicional, a exemplo do manejo do capim dourado, é perder um modelo de uso sustentável da natureza.</p>
+
+    <p><span class="k-con">Portanto</span>, é urgente enfrentar esses desafios. <span class="k-pi">Cabe ao Governo Federal, por meio do Ibama e em parceria com os órgãos ambientais estaduais e a Funai, ampliar o monitoramento do desmatamento por imagens de satélite e acelerar a demarcação e a titulação de terras indígenas e quilombolas, mediante equipes de fiscalização em campo e a divulgação pública dos dados, a fim de punir os crimes ambientais e garantir o território das comunidades.</span> <span class="k-con">Além disso</span>, escolas e universidades tocantinenses devem promover projetos de educação ambiental que valorizem o saber tradicional, com o objetivo de formar cidadãos conscientes. <span class="k-con">Assim</span>, o Cerrado deixará de ser tratado como recurso a consumir e passará a ser reconhecido como herança coletiva.</p>
+    <p class="leg">Texto de cerca de 450 palavras, o que em letra manuscrita fica entre 30 e 32 linhas. Se o edital limitar o número de linhas, corte primeiro a frase iniciada por “Soma-se a isso” e a última frase do terceiro parágrafo.</p>
+  </div>
+
+  <h3>Como adaptar o modelo a cada macrotema</h3>
+  <details>
+    <summary>Macrotema 1 · Meio ambiente (adaptação mínima)</summary>
+    <div class="in">
+      <p>O modelo já está quase pronto. Troque a ênfase do D2: em vez dos povos tradicionais, fale das <strong>consequências do aquecimento global</strong> (secas extremas, queimadas, perda de biodiversidade) ou do <strong>conflito entre agronegócio e sustentabilidade</strong>. Mantenha Art. 225 e Brundtland. Na proposta, o agente pode ser o Governo (incentivos à produção sustentável) ou o setor produtivo (adoção de práticas de baixo carbono).</p>
+    </div>
+  </details>
+  <details>
+    <summary>Macrotema 2 · Tecnologia e inovação</summary>
+    <div class="in">
+      <p>Mantenha o Cerrado como <em>cenário</em> só se o tema permitir; caso contrário, troque a introdução por um dado ou conceito de tecnologia (Bauman e a "modernidade líquida", ou Deleuze e a "sociedade de controle"). No D1, trate de um efeito negativo (desinformação, precarização do trabalho por plataformas, vigilância); no D2, da <strong>exclusão digital</strong>, aproveitando a ideia da desigualdade de acesso do modelo. Na proposta, o agente pode ser o Ministério da Educação (letramento digital nas escolas) ou o Governo Federal (ampliação da internet em áreas remotas).</p>
+    </div>
+  </details>
+  <details>
+    <summary>Macrotema 3 · Diversidade, território e povos tradicionais</summary>
+    <div class="in">
+      <p>Inverta a ordem: coloque o D2 do modelo (povos originários e quilombolas, Art. 231 e Art. 68 do ADCT) como D1 e o desmatamento como D2, explicando que a perda do território é perda cultural. Acrescente a Declaração da UNESCO (2001) e o conceito de patrimônio imaterial (capim dourado, festas). Na proposta, o agente pode ser a Funai e o Ministério Público, com demarcação de terras, e a escola, com o ensino da cultura indígena e quilombola.</p>
+    </div>
+  </details>
+
+  <div class="box dica"><span class="tag">Dica de prova</span><p>Treine a proposta de intervenção até saber de cabeça a fórmula: <strong>AGENTE + AÇÃO + MEIO + FINALIDADE</strong>. Uma proposta que cita só "o governo deve fazer algo" perde pontos. Seja específico e sempre respeite os direitos humanos (nada de propor punições violentas ou censura).</p></div>
+  <label class="done"><input type="checkbox" data-sec="s33"> Marcar como revisado</label>
+</section>
+
+<section class="block" id="s34">
+  <h2>3.4 Repertório sociocultural universal</h2>
+  <p>Referências versáteis, que servem para vários temas. Citar com precisão (autor, obra, ideia) vale mais do que citar muito.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Referência</th><th>Contexto de uso</th></tr></thead>
+    <tbody>
+      <tr><td>Constituição Federal de 1988</td><td>Cidadania, direitos, democracia, meio ambiente</td></tr>
+      <tr><td>Declaração Universal dos Direitos Humanos (ONU, 1948)</td><td>Direitos humanos, igualdade, diversidade</td></tr>
+      <tr><td>Zygmunt Bauman, "Modernidade Líquida"</td><td>Relações frágeis, consumismo, tecnologia</td></tr>
+      <tr><td>Hannah Arendt, "A Condição Humana"</td><td>Política, esfera pública, ação coletiva</td></tr>
+      <tr><td>Relatório Brundtland (ONU, 1987)</td><td>Desenvolvimento sustentável</td></tr>
+      <tr><td>"O Cortiço", de Aluísio Azevedo</td><td>Desigualdade social, moradia, exclusão</td></tr>
+      <tr><td>"Vidas Secas", de Graciliano Ramos</td><td>Pobreza, sertão, desigualdade regional</td></tr>
+      <tr><td>Conceito de etnocentrismo (antropologia)</td><td>Preconceito cultural, diversidade</td></tr>
+      <tr><td>Art. 225 da CF/88</td><td>Meio ambiente ecologicamente equilibrado</td></tr>
+      <tr><td>Art. 5º da CF/88</td><td>Direitos e garantias fundamentais</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box ex"><span class="tag">Exemplo</span><p>Como encaixar: “Em <em>Vidas Secas</em>, Graciliano Ramos retrata uma família sertaneja que luta contra a seca e o abandono; fora da ficção, a desigualdade regional segue limitando o acesso a direitos básicos.” Uma frase que apresenta a referência e a conecta ao tema vale mais do que uma lista de nomes.</p></div>
+  <label class="done"><input type="checkbox" data-sec="s34"> Marcar como revisado</label>
+</section>
+
+<!-- ============ PARTE 4 ============ -->
+<section class="part-head" id="parte4">
+  <h2>Parte 4 · Questões de fixação</h2>
+  <p>30 questões no estilo Exato/ENEM. Resolva primeiro, sem consultar. Depois confira no gabarito comentado, que fica no fim (cada resposta está escondida; clique para abrir). Cronometre: cerca de 3 minutos por questão.</p>
+</section>
+
+<!-- ===== LINGUAGENS ===== -->
+<section class="block" id="q-ling">
+  <h2>Questões 1 a 10 · Linguagens</h2>
+
+  <div class="q" id="q1">
+    <div class="qh"><span class="qn">Questão 1</span><span class="pill b">Interpretação</span><a class="golink" href="#g1">ver gabarito</a></div>
+    <blockquote><p>Nas últimas décadas, a velocidade com que as informações circulam transformou a leitura em um ato apressado. Manchetes são compartilhadas sem que o texto completo seja lido, e opiniões se formam a partir de fragmentos. O resultado não é um cidadão mais informado, mas um cidadão mais seguro de si e menos preparado para duvidar.</p></blockquote>
+    <p class="enun">A ideia central do texto é que</p>
+    <ol class="alts">
+      <li>a internet deve ser abandonada, porque torna os cidadãos desinformados.</li>
+      <li>toda manchete compartilhada em redes sociais é falsa ou manipulada.</li>
+      <li>a circulação veloz de informações, sem leitura aprofundada, gera convicção sem fundamento e enfraquece a capacidade de duvidar.</li>
+      <li>a leitura em papel é sempre superior à leitura em meios digitais.</li>
+      <li>o acesso rápido a manchetes torna o cidadão mais bem informado e mais crítico.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q2">
+    <div class="qh"><span class="qn">Questão 2</span><span class="pill b">Funções da linguagem</span><a class="golink" href="#g2">ver gabarito</a></div>
+    <blockquote><p><strong>Doe sangue. Doe vida.</strong><br>Você pode salvar até quatro pessoas com uma única doação. Procure o hemocentro mais próximo e faça a sua parte!</p><p class="cap">Texto de campanha de saúde pública.</p></blockquote>
+    <p class="enun">A função da linguagem predominante nesse texto é a</p>
+    <ol class="alts">
+      <li>emotiva, pois expressa os sentimentos de quem escreve.</li>
+      <li>conativa, pois busca convencer o leitor e orientá-lo a agir.</li>
+      <li>referencial, pois apenas informa dados objetivos sobre doação.</li>
+      <li>metalinguística, pois explica o próprio código da língua.</li>
+      <li>fática, pois testa o canal de comunicação com o leitor.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q3">
+    <div class="qh"><span class="qn">Questão 3</span><span class="pill b">Figuras de linguagem</span><a class="golink" href="#g3">ver gabarito</a></div>
+    <blockquote>
+      <p>I. "O vento sussurrava segredos entre as folhas do buriti."</p>
+      <p>II. "Esperei uma eternidade na fila do banco."</p>
+      <p>III. "Que beleza: o ônibus passou direto e me deixou na chuva!"</p>
+    </blockquote>
+    <p class="enun">As figuras de linguagem predominantes em I, II e III são, respectivamente:</p>
+    <ol class="alts">
+      <li>metáfora, eufemismo e antítese.</li>
+      <li>comparação, hipérbole e paradoxo.</li>
+      <li>onomatopeia, gradação e ironia.</li>
+      <li>personificação, eufemismo e metonímia.</li>
+      <li>personificação, hipérbole e ironia.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q4">
+    <div class="qh"><span class="qn">Questão 4</span><span class="pill b">Concordância</span><a class="golink" href="#g4">ver gabarito</a></div>
+    <blockquote><p>O manual de redação de um órgão público orienta os servidores a seguir a norma-padrão em ofícios e comunicados.</p></blockquote>
+    <p class="enun">De acordo com a norma-padrão, a frase que apresenta concordância adequada é:</p>
+    <ol class="alts">
+      <li>Haviam muitos candidatos na sala.</li>
+      <li>Fazem dois anos que ele estuda para o concurso.</li>
+      <li>Ela chegou meia nervosa para a prova.</li>
+      <li>Havia muitos candidatos na sala, e fazia dois anos que ele estudava para o concurso.</li>
+      <li>É proibido a entrada de candidatos após o fechamento dos portões.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q5">
+    <div class="qh"><span class="qn">Questão 5</span><span class="pill b">Regência verbal</span><a class="golink" href="#g5">ver gabarito</a></div>
+    <blockquote><p>Em um processo seletivo, a banca prepara frases para que os candidatos identifiquem a regência de acordo com a norma-padrão.</p></blockquote>
+    <p class="enun">Assinale a alternativa em que a regência verbal está de acordo com a norma-padrão.</p>
+    <ol class="alts">
+      <li>O estagiário aspira ao cargo de analista.</li>
+      <li>Todos os alunos assistiram o filme no auditório.</li>
+      <li>Prefiro estudar de manhã do que à noite.</li>
+      <li>A decisão implica em novos custos para o município.</li>
+      <li>Ele chegou em Palmas na noite de ontem.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q6">
+    <div class="qh"><span class="qn">Questão 6</span><span class="pill b">Crase</span><a class="golink" href="#g6">ver gabarito</a></div>
+    <blockquote><p>"Na manhã de ontem, fomos <strong>(1)</strong> Palmas para assistir <strong>(2)</strong> palestra que começaria <strong>(3)</strong> oito horas, mas chegamos <strong>(4)</strong> tempo."</p></blockquote>
+    <p class="enun">Para completar corretamente as lacunas 1, 2, 3 e 4, usa-se, respectivamente:</p>
+    <ol class="alts">
+      <li>à, à, às, a</li>
+      <li>a, à, às, a</li>
+      <li>a, a, as, à</li>
+      <li>à, a, as, à</li>
+      <li>a, à, às, à</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q7">
+    <div class="qh"><span class="qn">Questão 7</span><span class="pill b">Variação linguística</span><a class="golink" href="#g7">ver gabarito</a></div>
+    <blockquote><p>Um agente público escreve em um ofício: "Solicito a Vossa Senhoria que se digne a analisar o pedido." Na hora do almoço, conversando com os colegas, ele diz: "Bora almoçar, gente? Tô com uma fome!"</p></blockquote>
+    <p class="enun">A situação descrita ilustra que</p>
+    <ol class="alts">
+      <li>o agente comete erro de português no almoço, pois deveria usar sempre a linguagem do ofício.</li>
+      <li>a fala do almoço é um exemplo de variação diacrônica, pois pertence a uma época passada.</li>
+      <li>o falante adapta o registro à situação comunicativa, o que caracteriza a variação situacional (diafásica) e a ideia de adequação.</li>
+      <li>há variação diatópica, pois o agente muda de região ao longo do dia.</li>
+      <li>a linguagem informal é inferior e deve ser evitada em qualquer contexto.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q8">
+    <div class="qh"><span class="qn">Questão 8</span><span class="pill b">Literatura</span><a class="golink" href="#g8">ver gabarito</a></div>
+    <blockquote><p>"Minha terra tem palmeiras,<br>Onde canta o Sabiá;<br>As aves, que aqui gorjeiam,<br>Não gorjeiam como lá."</p><p class="cap">Gonçalves Dias, "Canção do exílio" (1843), escrita pelo poeta quando estava em Coimbra, longe do Brasil.</p></blockquote>
+    <p class="enun">O trecho se filia ao seguinte período literário, pelo motivo indicado:</p>
+    <ol class="alts">
+      <li>Parnasianismo, pela busca da perfeição formal e pelo "culto à forma".</li>
+      <li>Arcadismo, pela idealização de pastores e pelo uso do <em>fugere urbem</em>.</li>
+      <li>Realismo, pela análise objetiva e impessoal da realidade social.</li>
+      <li>Modernismo, pela ruptura com o passado e pelo humor irreverente.</li>
+      <li>Romantismo, pela exaltação da natureza e da pátria e pelo saudosismo do eu lírico.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q9">
+    <div class="qh"><span class="qn">Questão 9</span><span class="pill b">Artes e cultura</span><a class="golink" href="#g9">ver gabarito</a></div>
+    <blockquote><p>No Jalapão, mulheres e homens de comunidades como a do Mumbuca, em Mateiros, colhem o capim dourado, secam as hastes ao sol e as costuram com fios da seda do buriti, formando bolsas, cestos e mandalas. O conhecimento é transmitido de geração em geração e faz parte da identidade da comunidade.</p></blockquote>
+    <p class="enun">Do ponto de vista do patrimônio cultural, o artesanato descrito é um exemplo de</p>
+    <ol class="alts">
+      <li>patrimônio imaterial, pois envolve um saber-fazer transmitido entre gerações, ligado à identidade e ao uso sustentável de recursos naturais.</li>
+      <li>patrimônio material, pois só importa o objeto vendido, e não o saber que o produz.</li>
+      <li>manifestação da cultura erudita europeia, trazida pelos colonizadores.</li>
+      <li>produção industrial padronizada, voltada somente à exportação.</li>
+      <li>prática sem valor cultural, restrita à lembrança turística.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q10">
+    <div class="qh"><span class="qn">Questão 10</span><span class="pill b">Língua inglesa</span><a class="golink" href="#g10">ver gabarito</a></div>
+    <blockquote>
+      <p lang="en">Social media can help people stay in touch with friends and family. However, researchers have found that spending too many hours online may increase anxiety, especially among teenagers. Therefore, experts do not suggest that young people stop using the internet. Instead, they recommend setting daily time limits and talking openly with parents about what they see online.</p>
+    </blockquote>
+    <p class="enun">De acordo com o texto, os especialistas</p>
+    <ol class="alts">
+      <li>recomendam que os adolescentes abandonem as redes sociais.</li>
+      <li>afirmam que as redes sociais não causam nenhum problema.</li>
+      <li>defendem que somente os pais devem usar a internet.</li>
+      <li>recomendam estabelecer limites diários de tempo e conversar com os pais sobre o que se vê na internet.</li>
+      <li>acreditam que a ansiedade só afeta adultos.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== CIÊNCIAS DA NATUREZA ===== -->
+<section class="block" id="q-cn">
+  <h2>Questões 11 a 20 · Ciências da Natureza</h2>
+
+  <div class="q" id="q11">
+    <div class="qh"><span class="qn">Questão 11</span><span class="pill">Física · cinemática</span><a class="golink" href="#g11">ver gabarito</a></div>
+    <blockquote><p>Um veículo parte do repouso em uma avenida de Palmas e mantém aceleração constante de 2 m/s² em linha reta.</p></blockquote>
+    <p class="enun">A distância percorrida por ele nos primeiros 10 segundos é de</p>
+    <ol class="alts">
+      <li>20 m.</li>
+      <li>50 m.</li>
+      <li>100 m.</li>
+      <li>200 m.</li>
+      <li>400 m.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q12">
+    <div class="qh"><span class="qn">Questão 12</span><span class="pill">Física · Newton</span><a class="golink" href="#g12">ver gabarito</a></div>
+    <blockquote><p>Quando um ônibus freia bruscamente, os passageiros em pé são lançados para a frente, mesmo sem que ninguém os empurre.</p></blockquote>
+    <p class="enun">Esse fenômeno é explicado</p>
+    <ol class="alts">
+      <li>pela 3ª Lei de Newton, pois a força de frenagem é a reação ao peso dos passageiros.</li>
+      <li>pela 1ª Lei de Newton (inércia), pois os passageiros tendem a manter o estado de movimento que tinham.</li>
+      <li>pela 2ª Lei de Newton, pois a força resultante sobre os passageiros é nula.</li>
+      <li>pela ação de uma força para a frente, aplicada pelo ônibus sobre os passageiros.</li>
+      <li>pela ausência de gravidade no interior do ônibus.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q13">
+    <div class="qh"><span class="qn">Questão 13</span><span class="pill">Física · eletricidade</span><a class="golink" href="#g13">ver gabarito</a></div>
+    <blockquote><p>Um chuveiro elétrico de 4400 W, ligado em 220 V, é usado durante 30 minutos por dia. A tarifa de energia é de R$ 0,90 por kWh.</p></blockquote>
+    <p class="enun">Considerando um mês de 30 dias, o custo mensal desse uso é de</p>
+    <ol class="alts">
+      <li>R$ 19,80.</li>
+      <li>R$ 29,70.</li>
+      <li>R$ 118,80.</li>
+      <li>R$ 59,40.</li>
+      <li>R$ 594,00.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q14">
+    <div class="qh"><span class="qn">Questão 14</span><span class="pill">Química · ligações</span><a class="golink" href="#g14">ver gabarito</a></div>
+    <blockquote><p>O sal de cozinha (NaCl) sólido não conduz corrente elétrica, mas uma solução de NaCl em água conduz.</p></blockquote>
+    <p class="enun">Esse comportamento se explica porque</p>
+    <ol class="alts">
+      <li>no sal dissolvido, os íons Na⁺ e Cl⁻ ficam livres e transportam carga elétrica; no sólido, estão presos na rede cristalina.</li>
+      <li>o NaCl é um metal e, quando sólido, seus elétrons livres ficam parados.</li>
+      <li>o NaCl é formado por moléculas apolares que se orientam quando entram em contato com a água.</li>
+      <li>a água pura é ótima condutora, e o sal apenas reduz sua condutividade.</li>
+      <li>o NaCl é formado por ligação covalente, em que Na e Cl compartilham elétrons.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q15">
+    <div class="qh"><span class="qn">Questão 15</span><span class="pill">Química · ambiental</span><a class="golink" href="#g15">ver gabarito</a></div>
+    <blockquote><p>Em grandes centros industriais, é comum que monumentos de mármore (CaCO₃) apresentem desgaste acelerado, e que lagos e solos próximos tenham o pH reduzido após períodos de chuva.</p></blockquote>
+    <p class="enun">A causa mais provável desse fenômeno é</p>
+    <ol class="alts">
+      <li>a ação dos CFCs, que destroem a camada de ozônio e aumentam a radiação UV sobre os monumentos.</li>
+      <li>o CO₂, que sozinho é responsável por toda a acidez da chuva e dissolve rochas de forma intensa.</li>
+      <li>a ocorrência exclusiva em regiões desérticas, onde não há água.</li>
+      <li>a reação de gases nobres com a água da atmosfera, formando bases fortes.</li>
+      <li>a reação de SO₂ e NOx, liberados na queima de combustíveis fósseis, com a água da atmosfera, formando ácido sulfúrico e ácido nítrico.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q16">
+    <div class="qh"><span class="qn">Questão 16</span><span class="pill">Química e Biologia · água</span><a class="golink" href="#g16">ver gabarito</a></div>
+    <blockquote><p>Em um lago urbano que recebe esgoto doméstico e fertilizantes, observou-se um crescimento intenso de algas na superfície. Semanas depois, as algas morreram em grande quantidade, bactérias decompositoras se multiplicaram e houve mortandade de peixes.</p></blockquote>
+    <p class="enun">O processo descrito e a causa imediata da morte dos peixes são, respectivamente:</p>
+    <ol class="alts">
+      <li>bioacumulação de metais pesados; intoxicação dos peixes pelos metais.</li>
+      <li>inversão térmica; aprisionamento de poluentes sobre o lago.</li>
+      <li>eutrofização; falta de oxigênio dissolvido, consumido na decomposição da matéria orgânica.</li>
+      <li>chuva ácida; acidificação intensa da água.</li>
+      <li>aquecimento global; evaporação total da água do lago.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q17">
+    <div class="qh"><span class="qn">Questão 17</span><span class="pill">Biologia · ecologia</span><a class="golink" href="#g17">ver gabarito</a></div>
+    <blockquote><p>Em uma área de Cerrado, uma cadeia alimentar é formada por: capim → gafanhoto → sapo → serpente. Considere que, em média, apenas 10% da energia de um nível trófico é transferida ao nível seguinte. O capim armazena 10 000 kJ de energia.</p></blockquote>
+    <p class="enun">A quantidade aproximada de energia disponível para o sapo (consumidor secundário) é de</p>
+    <ol class="alts">
+      <li>10 kJ.</li>
+      <li>100 kJ.</li>
+      <li>1 000 kJ.</li>
+      <li>5 000 kJ.</li>
+      <li>9 000 kJ.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q18">
+    <div class="qh"><span class="qn">Questão 18</span><span class="pill">Biologia · relações ecológicas</span><a class="golink" href="#g18">ver gabarito</a></div>
+    <blockquote>
+      <p>I. O líquen, formado por uma alga e um fungo que vivem juntos e dependem um do outro.</p>
+      <p>II. Uma orquídea que cresce sobre o tronco de uma árvore sem prejudicá-la.</p>
+      <p>III. O carrapato que se alimenta do sangue do gado.</p>
+      <p>IV. A onça-pintada e a jaguatirica disputando as mesmas presas.</p>
+    </blockquote>
+    <p class="enun">As relações ecológicas descritas em I, II, III e IV são, respectivamente:</p>
+    <ol class="alts">
+      <li>comensalismo, mutualismo, predação, competição.</li>
+      <li>mutualismo, parasitismo, comensalismo, predação.</li>
+      <li>protocooperação, comensalismo, competição, parasitismo.</li>
+      <li>mutualismo, comensalismo, parasitismo, competição.</li>
+      <li>parasitismo, mutualismo, comensalismo, competição.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q19">
+    <div class="qh"><span class="qn">Questão 19</span><span class="pill">Biologia · Cerrado</span><a class="golink" href="#g19">ver gabarito</a></div>
+    <blockquote><p>O Cerrado é conhecido como o "berço das águas", pois abriga nascentes de importantes bacias hidrográficas brasileiras. Sua vegetação, de raízes profundas, está adaptada ao fogo natural. Nas últimas décadas, grandes áreas de vegetação nativa foram convertidas em lavouras e pastagens, especialmente na região do Matopiba.</p></blockquote>
+    <p class="enun">Uma consequência esperada dessa conversão é</p>
+    <ol class="alts">
+      <li>a perda de biodiversidade e a redução da infiltração da água no solo, o que prejudica a recarga de aquíferos e nascentes.</li>
+      <li>nenhuma alteração nos rios, pois o Cerrado tem pouca importância hídrica.</li>
+      <li>o aumento do escoamento da água pelas raízes profundas das lavouras, o que recarrega os aquíferos.</li>
+      <li>o aumento da biodiversidade, já que a soja é uma espécie nativa do Cerrado.</li>
+      <li>a ausência de danos mesmo com queimadas frequentes e extensas, pois o Cerrado é adaptado ao fogo.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q20">
+    <div class="qh"><span class="qn">Questão 20</span><span class="pill">Biologia · genética</span><a class="golink" href="#g20">ver gabarito</a></div>
+    <blockquote><p>O albinismo é uma condição determinada por um alelo recessivo (a). Um casal com pigmentação normal teve um primeiro filho albino.</p></blockquote>
+    <p class="enun">A probabilidade de o próximo filho do casal também ser albino é de</p>
+    <ol class="alts">
+      <li>0%.</li>
+      <li>75%.</li>
+      <li>50%.</li>
+      <li>100%.</li>
+      <li>25%.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== OBRAS ===== -->
+<section class="block" id="q-obras">
+  <h2>Questões 21 a 25 · Obras indicadas</h2>
+
+  <div class="q" id="q21">
+    <div class="qh"><span class="qn">Questão 21</span><span class="pill o">Solau do Mal de Amor</span><a class="golink" href="#g21">ver gabarito</a></div>
+    <blockquote><p>Em um dos poemas de "Solau do Mal de Amor", de Luiza Helena Oliveira da Silva, o eu lírico recebe seis pequis como presente de amor, em vez de flores ou vinho.</p></blockquote>
+    <p class="enun">No contexto da obra, esse gesto poético</p>
+    <ol class="alts">
+      <li>rejeita o amor e ironiza o Tocantins, tratando o pequi como símbolo de atraso.</li>
+      <li>substitui os símbolos românticos tradicionais por um elemento da identidade regional, aproximando o amor do cotidiano tocantinense.</li>
+      <li>idealiza uma musa inatingível, ao modo da poesia árcade e parnasiana.</li>
+      <li>descreve o pequi apenas como planta do Cerrado, sem nenhum valor simbólico.</li>
+      <li>narra, em prosa e em terceira pessoa, a colheita do pequi no Jalapão.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q22">
+    <div class="qh"><span class="qn">Questão 22</span><span class="pill o">Solau do Mal de Amor</span><a class="golink" href="#g22">ver gabarito</a></div>
+    <blockquote><p>A autora de "Solau do Mal de Amor" afirma ser uma "poeta menor", expressão que dialoga com Manuel Bandeira. Seus poemas usam linguagem próxima da fala, tratam de saudade, amor e vida comum, e recusam musas e visões transcendentes.</p></blockquote>
+    <p class="enun">Esse conjunto de características aproxima a obra da tradição</p>
+    <ol class="alts">
+      <li>parnasiana, pela métrica regular e pelas rimas ricas.</li>
+      <li>barroca, pela linguagem rebuscada e pelas antíteses.</li>
+      <li>modernista, pelo verso livre, pela linguagem coloquial e pela valorização do cotidiano.</li>
+      <li>árcade, pela idealização da amada e pela figura do pastor.</li>
+      <li>naturalista, pela objetividade científica e pelo determinismo.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q23">
+    <div class="qh"><span class="qn">Questão 23</span><span class="pill o">Bem-te-vi</span><a class="golink" href="#g23">ver gabarito</a></div>
+    <blockquote><p>No conto "Samarica enroladeira de pito", de "Bem-te-vi", uma menina do sertão fuma escondido e é punida pelo pai com uma brasa na língua. Mais tarde, quando o pai fica sem tabaco, é ela quem tem o estoque.</p></blockquote>
+    <p class="enun">A inversão final do conto revela principalmente</p>
+    <ol class="alts">
+      <li>a autonomia da menina, que desloca a autoridade paterna ao se tornar a fornecedora do que o pai deseja.</li>
+      <li>a obediência da filha, que aceita sem reação a violência do pai.</li>
+      <li>a defesa do castigo físico como forma de cuidado afetuoso.</li>
+      <li>uma disputa de terras entre fazendeiros e quilombolas.</li>
+      <li>um humor leve, sem qualquer conflito de poder entre os personagens.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q24">
+    <div class="qh"><span class="qn">Questão 24</span><span class="pill o">Bem-te-vi</span><a class="golink" href="#g24">ver gabarito</a></div>
+    <p class="enun">Sobre "Bem-te-vi", de Ernesto Ferreira Silva, é correto afirmar que se trata de</p>
+    <ol class="alts">
+      <li>um conjunto de poemas em versos livres sobre o amor, ambientado em Palmas.</li>
+      <li>uma narrativa totalmente objetiva e científica, sem humor nem ironia, ambientada em cidades litorâneas.</li>
+      <li>um romance único, de linguagem exclusivamente erudita, sem marcas de oralidade.</li>
+      <li>uma peça teatral sobre a fundação do Tocantins, em linguagem técnica.</li>
+      <li>uma coletânea de 13 contos de ambientação sertaneja, com linguagem regional de tom oral, que mistura realismo social, humor, ironia e elementos fantásticos.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q25">
+    <div class="qh"><span class="qn">Questão 25</span><span class="pill o">Bem-te-vi</span><a class="golink" href="#g25">ver gabarito</a></div>
+    <blockquote><p>No conto "E agora, Briguello?", a família Constâncio, de Jardim Amarelo, tem em Briguello, homem negro, um trabalhador e protetor. A narrativa também registra a chegada do rádio, as festas religiosas e a partida das filhas para estudar em Goiânia.</p></blockquote>
+    <p class="enun">Esses elementos permitem concluir que o conto</p>
+    <ol class="alts">
+      <li>é uma ficção científica sobre o futuro do sertão.</li>
+      <li>narra a ascensão econômica de Briguello, que supera as desigualdades e se torna dono da fazenda.</li>
+      <li>concentra-se numa disputa de bar após um velório.</li>
+      <li>articula hierarquias de classe e raça com a nostalgia e as mudanças trazidas pela modernização do campo.</li>
+      <li>defende o isolamento rural como único caminho possível para as famílias.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== INTERDISCIPLINARES ===== -->
+<section class="block" id="q-inter">
+  <h2>Questões 26 a 30 · Mistas (interdisciplinares)</h2>
+
+  <div class="q" id="q26">
+    <div class="qh"><span class="qn">Questão 26</span><span class="pill b">Redação · proposta</span><a class="golink" href="#g26">ver gabarito</a></div>
+    <blockquote><p>Um candidato precisa redigir a proposta de intervenção de uma redação cujo tema é "Desafios para a preservação do Cerrado no Tocantins". Ele escreveu cinco versões.</p></blockquote>
+    <p class="enun">A versão que apresenta uma proposta completa, com agente, ação, meio e finalidade, é:</p>
+    <ol class="alts">
+      <li>"É preciso que algo seja feito para que o Cerrado seja protegido."</li>
+      <li>"O governo deve agir para resolver o problema."</li>
+      <li>"O Ibama, em parceria com os órgãos ambientais estaduais, deve ampliar o monitoramento por satélite e as multas contra o desmatamento ilegal, por meio de equipes de campo e da divulgação pública dos dados, a fim de reduzir a perda de vegetação nativa e proteger as nascentes."</li>
+      <li>"Cabe à população refletir sobre o Cerrado e se conscientizar."</li>
+      <li>"A mídia deve falar mais sobre as queimadas."</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q27">
+    <div class="qh"><span class="qn">Questão 27</span><span class="pill b">Linguagens + Química</span><a class="golink" href="#g27">ver gabarito</a></div>
+    <blockquote><p>Uma charge mostra um homem diante de uma mata em chamas, dizendo, com ar tranquilo: "Calma, é só um pedacinho." Ao fundo, um termômetro gigante, que representa o planeta, marca febre alta.</p></blockquote>
+    <p class="enun">A leitura mais adequada da charge, associada ao conhecimento químico, é:</p>
+    <ol class="alts">
+      <li>critica, com ironia, a minimização das queimadas; a combustão da vegetação libera CO₂, gás de efeito estufa que intensifica o aquecimento global.</li>
+      <li>elogia as queimadas, pois elas reduzem o CO₂ da atmosfera e resfriam o planeta.</li>
+      <li>defende que o aquecimento global é causado somente pelo buraco na camada de ozônio.</li>
+      <li>tem função metalinguística e trata das regras da gramática normativa.</li>
+      <li>mostra que as queimadas liberam O₂ em grande quantidade e, por isso, são benéficas ao clima.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q28">
+    <div class="qh"><span class="qn">Questão 28</span><span class="pill b">Física + Meio ambiente</span><a class="golink" href="#g28">ver gabarito</a></div>
+    <blockquote><p>O Tocantins recebe muita radiação solar ao longo do ano. Considere um painel fotovoltaico de 400 W que opere, em média, o equivalente a 5 horas por dia na potência máxima, durante 30 dias.</p></blockquote>
+    <p class="enun">A energia gerada no mês e uma vantagem ambiental dessa fonte são, respectivamente:</p>
+    <ol class="alts">
+      <li>12 kWh; trata-se de uma fonte esgotável, mas barata.</li>
+      <li>60 kWh; trata-se de uma fonte renovável que não emite CO₂ durante a geração.</li>
+      <li>6 kWh; trata-se de uma fonte que depende da queima de combustíveis.</li>
+      <li>600 kWh; trata-se de uma fonte que causa chuva ácida.</li>
+      <li>2 kWh; trata-se de uma fonte que destrói a camada de ozônio.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q29">
+    <div class="qh"><span class="qn">Questão 29</span><span class="pill b">Artes + Biologia + Redação</span><a class="golink" href="#g29">ver gabarito</a></div>
+    <blockquote><p>Comunidades do Jalapão só colhem o capim dourado depois que as sementes amadurecem e caem, deixando parte das touceiras intactas. Com as hastes, produzem artesanato que gera renda para as famílias e preserva um saber tradicional.</p></blockquote>
+    <p class="enun">Essa prática exemplifica</p>
+    <ol class="alts">
+      <li>uma ação que contraria a preservação, pois retira recursos do Cerrado.</li>
+      <li>a ideia de que conservação ambiental é incompatível com geração de renda.</li>
+      <li>a prova de que o saber tradicional é irrelevante para a ciência.</li>
+      <li>o desenvolvimento sustentável, pois o manejo respeita o ciclo reprodutivo da espécie, garante a renovação do recurso e sustenta o patrimônio imaterial e a renda da comunidade.</li>
+      <li>uma relação de parasitismo entre a comunidade e a planta.</li>
+    </ol>
+  </div>
+
+  <div class="q" id="q30">
+    <div class="qh"><span class="qn">Questão 30</span><span class="pill b">Tecnologia + Coesão</span><a class="golink" href="#g30">ver gabarito</a></div>
+    <blockquote><p>"A tecnologia ampliou o acesso à informação e aos serviços públicos. <strong>_____</strong>, milhões de brasileiros ainda não têm internet de qualidade, o que aprofunda desigualdades."</p></blockquote>
+    <p class="enun">O conectivo que preenche a lacuna de modo a manter a coesão e o sentido do trecho é:</p>
+    <ol class="alts">
+      <li>Portanto</li>
+      <li>Ademais</li>
+      <li>Logo</li>
+      <li>Visto que</li>
+      <li>Entretanto</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ GABARITO ============ -->
+<section class="block" id="gabarito">
+  <h2>Gabarito comentado</h2>
+  <p>Tente cada questão antes de abrir. Clique no número para ver a resposta e a explicação, incluindo por que os distratores mais tentadores estão errados.</p>
+
+  <h3>Linguagens</h3>
+  <details class="gab" id="g1"><summary>Questão 1: gabarito</summary><div class="in">
+    <p><strong>Resposta: C.</strong> O texto afirma que a leitura apressada produz um cidadão "mais seguro de si e menos preparado para duvidar", ou seja, convicção sem fundamento.</p>
+    <p>A) extrapola: o texto critica um hábito, não pede que a internet seja abandonada. B) distorce: fala de manchetes lidas sem o texto completo, não de manchetes falsas. D) o texto não compara papel e tela. E) afirma o contrário do que o texto diz.</p>
+  </div></details>
+  <details class="gab" id="g2"><summary>Questão 2: gabarito</summary><div class="in">
+    <p><strong>Resposta: B.</strong> Verbos no imperativo ("Doe", "Procure", "faça") e o pronome "você" indicam foco no receptor para convencê-lo a agir: função conativa.</p>
+    <p>C) há dado informativo ("até quatro pessoas"), mas ele serve ao apelo, que é o que predomina. A) não há expressão dos sentimentos do emissor. D) o texto não fala da língua. E) não há checagem do canal ("alô?").</p>
+  </div></details>
+  <details class="gab" id="g3"><summary>Questão 3: gabarito</summary><div class="in">
+    <p><strong>Resposta: E.</strong> I: o vento "sussurra", atributo humano dado a algo inanimado (personificação). II: "uma eternidade" é exagero (hipérbole). III: diz "que beleza" para uma situação ruim (ironia).</p>
+    <p>A e C erram em I e II. B) "sussurrava" não é comparação, e não há paradoxo em III. D) não há eufemismo em II (o tom é de exagero, não de suavização) nem metonímia em III.</p>
+  </div></details>
+  <details class="gab" id="g4"><summary>Questão 4: gabarito</summary><div class="in">
+    <p><strong>Resposta: D.</strong> HAVER no sentido de existir e FAZER indicando tempo são impessoais e ficam no singular: "Havia" e "fazia".</p>
+    <p>A) "Haviam" está errado. B) "Fazem" está errado. C) "meio", como advérbio, é invariável ("meio nervosa"). E) com artigo, o adjetivo concorda: "É proibida a entrada".</p>
+  </div></details>
+  <details class="gab" id="g5"><summary>Questão 5: gabarito</summary><div class="in">
+    <p><strong>Resposta: A.</strong> "Aspirar" no sentido de desejar, almejar pede a preposição "a": aspirar ao cargo.</p>
+    <p>B) assistir, no sentido de ver, pede "a": "assistiram ao filme". C) preferir pede "a", não "do que": "prefiro estudar de manhã a estudar à noite". D) implicar, no sentido de acarretar, é transitivo direto: "implica novos custos". E) chegar pede "a": "chegou a Palmas".</p>
+  </div></details>
+  <details class="gab" id="g6"><summary>Questão 6: gabarito</summary><div class="in">
+    <p><strong>Resposta: B.</strong> (1) "Fomos a Palmas": sem crase, pois "Palmas" não aceita artigo (venho de Palmas). (2) "assistir à palestra": assistir (ver) pede "a" + artigo "a" da palavra feminina, logo, crase. (3) "às oito horas": crase antes de hora determinada. (4) "a tempo": locução com palavra masculina, sem crase.</p>
+    <p>As demais alternativas erram ao pôr crase em Palmas, ao omiti-la em "às oito horas" ou ao usá-la em "a tempo".</p>
+  </div></details>
+  <details class="gab" id="g7"><summary>Questão 7: gabarito</summary><div class="in">
+    <p><strong>Resposta: C.</strong> A mesma pessoa muda o registro conforme a situação e o interlocutor: variação situacional (diafásica), ligada à adequação.</p>
+    <p>A) a fala informal não é "erro", só seria inadequada em um ofício. B) não há diferença de época. D) não há mudança de região. E) é a ideia de preconceito linguístico, que a prova rejeita.</p>
+  </div></details>
+  <details class="gab" id="g8"><summary>Questão 8: gabarito</summary><div class="in">
+    <p><strong>Resposta: E.</strong> Exaltação da pátria e da natureza (palmeiras, sabiá) somada à saudade do exílio é traço do Romantismo, 1ª geração nacionalista.</p>
+    <p>A) o texto não persegue perfeição formal impessoal. B) não há pastores nem fuga da cidade. C) o eu lírico é subjetivo, não objetivo. D) o poema é romântico; os modernistas é que o parodiaram.</p>
+  </div></details>
+  <details class="gab" id="g9"><summary>Questão 9: gabarito</summary><div class="in">
+    <p><strong>Resposta: A.</strong> O saber-fazer transmitido entre gerações e ligado à identidade da comunidade é patrimônio cultural imaterial.</p>
+    <p>B) o valor do patrimônio está também (e sobretudo) no saber. C) é uma criação de comunidades locais. D) a produção é artesanal. E) o artesanato tem valor cultural, social e econômico.</p>
+  </div></details>
+  <details class="gab" id="g10"><summary>Questão 10: gabarito</summary><div class="in">
+    <p><strong>Resposta: D.</strong> A frase "they recommend setting daily time limits and talking openly with parents" corresponde à alternativa. Observe também "parents" = pais (não parentes).</p>
+    <p>A) o texto diz "do not suggest that young people stop using the internet". B) o texto fala de aumento da ansiedade. C) e E) não aparecem no texto; a ansiedade é citada "especialmente" entre adolescentes.</p>
+  </div></details>
+
+  <h3>Ciências da Natureza</h3>
+  <details class="gab" id="g11"><summary>Questão 11: gabarito</summary><div class="in">
+    <p><strong>Resposta: C.</strong> S = V₀·t + (a·t²)/2 = 0 + (2 · 10²)/2 = 100 m.</p>
+    <p>A) 20 m é a velocidade final (20 m/s), não a distância. D) 200 m resulta de esquecer de dividir por 2. B) e E) não correspondem a nenhuma fórmula.</p>
+  </div></details>
+  <details class="gab" id="g12"><summary>Questão 12: gabarito</summary><div class="in">
+    <p><strong>Resposta: B.</strong> Pela inércia (1ª Lei), os passageiros tendem a continuar em movimento enquanto o ônibus desacelera.</p>
+    <p>A) as forças de ação e reação atuam em corpos diferentes e não explicam o lançamento. C) a resultante nula não explica a mudança. D) não existe uma força para a frente: o que existe é a tendência de manter a velocidade. E) a gravidade continua atuando.</p>
+  </div></details>
+  <details class="gab" id="g13"><summary>Questão 13: gabarito</summary><div class="in">
+    <p><strong>Resposta: D.</strong> E = P · t = 4,4 kW · 0,5 h · 30 = 66 kWh. Custo: 66 · 0,90 = R$ 59,40.</p>
+    <p>C) R$ 118,80 é o resultado para 1 hora por dia. B) e A) vêm de usar tempo ou potência menores. E) é erro de vírgula (fator 10).</p>
+  </div></details>
+  <details class="gab" id="g14"><summary>Questão 14: gabarito</summary><div class="in">
+    <p><strong>Resposta: A.</strong> O NaCl é um composto iônico. No sólido, os íons estão fixos na rede cristalina; em solução, ficam livres e conduzem corrente.</p>
+    <p>B) o NaCl não é metal. C) não é molecular. D) a água pura conduz muito mal. E) a ligação é iônica (metal + ametal), não covalente.</p>
+  </div></details>
+  <details class="gab" id="g15"><summary>Questão 15: gabarito</summary><div class="in">
+    <p><strong>Resposta: E.</strong> SO₂ e NOx formam H₂SO₄ e HNO₃ (chuva ácida), que reduzem o pH e atacam o mármore (CaCO₃).</p>
+    <p>A) CFCs afetam o ozônio, não geram chuva ácida. B) o CO₂ torna a chuva levemente ácida (pH ≈ 5,6), mas não é a causa "exclusiva" nem explica o efeito intenso. C) é falso. D) gases nobres praticamente não reagem.</p>
+  </div></details>
+  <details class="gab" id="g16"><summary>Questão 16: gabarito</summary><div class="in">
+    <p><strong>Resposta: C.</strong> O excesso de nutrientes (N e P) do esgoto e dos fertilizantes provoca eutrofização. A decomposição das algas consome o oxigênio dissolvido, e os peixes morrem por asfixia.</p>
+    <p>A) não há menção a metais. B) a inversão térmica é um fenômeno atmosférico. D) não houve chuva ácida. E) não houve evaporação total.</p>
+  </div></details>
+  <details class="gab" id="g17"><summary>Questão 17: gabarito</summary><div class="in">
+    <p><strong>Resposta: B.</strong> Capim (produtor): 10 000 kJ. Gafanhoto (consumidor primário): 1 000 kJ. Sapo (consumidor secundário): 100 kJ.</p>
+    <p>C) 1 000 kJ seria o gafanhoto. A) 10 kJ seria a serpente. D) e E) ignoram a perda de energia entre os níveis.</p>
+  </div></details>
+  <details class="gab" id="g18"><summary>Questão 18: gabarito</summary><div class="in">
+    <p><strong>Resposta: D.</strong> I mutualismo (benefício mútuo obrigatório). II comensalismo (uma espécie se beneficia, a outra fica neutra). III parasitismo (o carrapato prejudica o hospedeiro). IV competição (disputa pelo mesmo recurso).</p>
+    <p>Nas demais, há troca de pares: por exemplo, confundir o líquen com comensalismo (A), ou o carrapato com predação (B).</p>
+  </div></details>
+  <details class="gab" id="g19"><summary>Questão 19: gabarito</summary><div class="in">
+    <p><strong>Resposta: A.</strong> Substituir a vegetação nativa por lavouras e pastagens reduz a biodiversidade e a infiltração de água, comprometendo a recarga de aquíferos e nascentes.</p>
+    <p>B) o Cerrado tem enorme importância hídrica. C) raízes profundas favorecem a infiltração, e as lavouras de raiz curta não repõem esse efeito. D) a soja não é nativa e a monocultura reduz a biodiversidade. E) adaptação ao fogo não significa tolerância a queimadas frequentes e extensas.</p>
+  </div></details>
+  <details class="gab" id="g20"><summary>Questão 20: gabarito</summary><div class="in">
+    <p><strong>Resposta: E.</strong> Pais normais com filho albino (aa) são ambos Aa. No cruzamento Aa × Aa, a chance de aa é 1/4 = 25%, e cada filho é um evento independente.</p>
+    <p>A) 0% ignora que ambos carregam o alelo recessivo. B) 75% é a chance de fenótipo normal. C) 50% seria a chance de ser portador. D) 100% só ocorreria se os dois fossem aa.</p>
+  </div></details>
+
+  <h3>Obras indicadas</h3>
+  <details class="gab" id="g21"><summary>Questão 21: gabarito</summary><div class="in">
+    <p><strong>Resposta: B.</strong> O pequi, típico do Cerrado, entra no lugar dos símbolos românticos (flores, vinho) e marca a identidade regional, unindo amor e cotidiano.</p>
+    <p>A) inverte o sentido afetivo do poema. C) a obra rejeita musas. D) o pequi tem valor simbólico. E) trata-se de poesia, não de prosa narrativa.</p>
+  </div></details>
+  <details class="gab" id="g22"><summary>Questão 22: gabarito</summary><div class="in">
+    <p><strong>Resposta: C.</strong> Verso livre, linguagem coloquial, valorização do cotidiano e a alusão a Bandeira ("poeta menor") aproximam a obra da tradição modernista.</p>
+    <p>A) a obra usa verso livre, sem métrica regular. B) a linguagem não é rebuscada. D) a obra recusa a idealização. E) o determinismo é do Naturalismo, que trata de outros temas.</p>
+  </div></details>
+  <details class="gab" id="g23"><summary>Questão 23: gabarito</summary><div class="in">
+    <p><strong>Resposta: A.</strong> Ao produzir o fumo que o pai passa a desejar, Samarica inverte a relação de poder e afirma autonomia diante da autoridade patriarcal.</p>
+    <p>B) a menina não é obediente: fuma escondido e depois domina o estoque. C) o conto não defende a violência. D) outro tema, de outro conto. E) há conflito claro de poder.</p>
+  </div></details>
+  <details class="gab" id="g24"><summary>Questão 24: gabarito</summary><div class="in">
+    <p><strong>Resposta: E.</strong> "Bem-te-vi" é uma coletânea de 13 contos ambientada no sertão, com linguagem regional, tom oral e mistura de realismo, humor, ironia e elementos fantásticos.</p>
+    <p>A) descreve poesia (que seria o "Solau"). B) a obra tem humor e ironia. C) é uma coletânea de contos, com marcas fortes de oralidade. D) não é peça teatral.</p>
+  </div></details>
+  <details class="gab" id="g25"><summary>Questão 25: gabarito</summary><div class="in">
+    <p><strong>Resposta: D.</strong> O conto trata de hierarquia de classe e raça (Briguello a serviço de uma família influente), com nostalgia e modernização (rádio, filhas estudando em Goiânia).</p>
+    <p>A) é realismo social, não ficção científica. B) o conto não narra ascensão de Briguello. C) é o enredo de "Boteco do Toé". E) a modernização aparece como mudança real, não como algo a evitar.</p>
+  </div></details>
+
+  <h3>Questões mistas</h3>
+  <details class="gab" id="g26"><summary>Questão 26: gabarito</summary><div class="in">
+    <p><strong>Resposta: C.</strong> Tem AGENTE (Ibama, com órgãos estaduais), AÇÃO (ampliar monitoramento e multas), MEIO (equipes de campo e dados públicos) e FINALIDADE (reduzir a perda de vegetação e proteger nascentes).</p>
+    <p>A, B, D e E são vagas: não definem agente concreto, meio de execução ou finalidade claros.</p>
+  </div></details>
+  <details class="gab" id="g27"><summary>Questão 27: gabarito</summary><div class="in">
+    <p><strong>Resposta: A.</strong> A fala tranquila diante da mata em chamas é ironia que critica a minimização do problema. A queima da vegetação libera CO₂, reforçando o efeito estufa.</p>
+    <p>B e E invertem o efeito químico. C) o buraco na camada de ozônio é outro problema ambiental. D) a charge não trata de gramática.</p>
+  </div></details>
+  <details class="gab" id="g28"><summary>Questão 28: gabarito</summary><div class="in">
+    <p><strong>Resposta: B.</strong> E = P · t = 0,4 kW · 5 h · 30 = 60 kWh. A energia solar é renovável e não emite CO₂ durante a geração.</p>
+    <p>As demais alternativas erram o cálculo (12, 6, 600, 2 kWh) e/ou atribuem à fonte solar efeitos que ela não tem (queima de combustíveis, chuva ácida, destruição do ozônio).</p>
+  </div></details>
+  <details class="gab" id="g29"><summary>Questão 29: gabarito</summary><div class="in">
+    <p><strong>Resposta: D.</strong> Colher depois da dispersão das sementes garante a renovação do recurso (viés ecológico), gera renda (viés econômico) e mantém um saber tradicional (viés cultural): é o desenvolvimento sustentável do Relatório Brundtland.</p>
+    <p>A e B contrariam o exemplo, que é de uso com preservação. C) o saber tradicional é um conhecimento valioso. E) a relação é de uso manejado, não de parasitismo.</p>
+  </div></details>
+  <details class="gab" id="g30"><summary>Questão 30: gabarito</summary><div class="in">
+    <p><strong>Resposta: E.</strong> A segunda frase contrasta com a primeira (a tecnologia ampliou o acesso, mas muita gente ainda não tem internet). O conectivo adequado é de oposição: "Entretanto".</p>
+    <p>A e C expressam conclusão; B) expressa adição; D) expressa causa e não pode iniciar uma oração independente com esse sentido.</p>
+  </div></details>
+
+  <div class="box memo"><span class="tag">Memorize</span><p>Conte seus acertos: 26 ou mais é excelente; 20 a 25 é bom, revise os assuntos dos erros; abaixo de 20, volte às caixas "Dica de prova" e "Memorize" das seções onde errou. Com 4 dias, o melhor investimento é revisar gramática (crase, concordância, regência), a estrutura da redação e a ecologia.</p></div>
+</section>
+
+<p class="cap" style="text-align:center;margin-top:34px">Boa prova, Marcos. Revisão Final · Exato UFT 2026</p>
+
+</div><!-- /wrap -->
+</main>
+
+<script>
+(function(){
+  var KEY='exato_uft_2026_rev';
+
+  /* contagem regressiva */
+  try{
+    var exam=new Date(2026,9,18), now=new Date();
+    var t0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var d=Math.round((exam-t0)/86400000);
+    var n=document.getElementById('daysN'), l=document.getElementById('daysL'), td=document.getElementById('topDays');
+    if(d>0){ n.textContent=d; l.textContent='Dias até a prova: '+d; td.textContent=d+(d===1?' dia':' dias'); }
+    else if(d===0){ n.textContent='0'; l.textContent='A prova é hoje. Boa sorte!'; td.textContent='hoje'; }
+    else { n.textContent='-'; l.textContent='Prova já realizada'; td.textContent='fim'; }
+  }catch(e){}
+
+  /* menu mobile */
+  var body=document.body, btn=document.getElementById('menuBtn'), scrim=document.getElementById('scrim');
+  function setNav(open){ body.classList.toggle('nav-open',open); btn.setAttribute('aria-expanded',open?'true':'false'); }
+  btn.addEventListener('click',function(){ setNav(!body.classList.contains('nav-open')); });
+  scrim.addEventListener('click',function(){ setNav(false); });
+  document.getElementById('sidebar').addEventListener('click',function(e){ if(e.target.tagName==='A') setNav(false); });
+
+  /* progresso das seções (localStorage opcional) */
+  var boxes=[].slice.call(document.querySelectorAll('.done input'));
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } }
+  function save(o){ try{ localStorage.setItem(KEY,JSON.stringify(o)); }catch(e){} }
+  var state=load();
+  function render(){
+    var c=0; boxes.forEach(function(b){ if(b.checked) c++; });
+    document.getElementById('progTxt').textContent=c+' de '+boxes.length;
+    document.getElementById('progBar').style.width=(boxes.length?Math.round(c/boxes.length*100):0)+'%';
+  }
+  boxes.forEach(function(b){
+    b.checked=!!state[b.dataset.sec];
+    b.addEventListener('change',function(){ state[b.dataset.sec]=b.checked; save(state); render(); });
+  });
+  render();
+
+  /* abrir o gabarito ao seguir o link */
+  function openHash(){
+    var id=location.hash.slice(1); if(!id) return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){ el.open=true; }
+  }
+  window.addEventListener('hashchange',openHash); openHash();
+
+  /* destaque do item ativo no menu */
+  var links={}; [].forEach.call(document.querySelectorAll('.sidebar a'),function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  var ids=Object.keys(links).filter(function(k){return k!=='topo' && document.getElementById(k);});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          [].forEach.call(document.querySelectorAll('.sidebar a.active'),function(a){a.classList.remove('active');});
+          if(links[e.target.id]) links[e.target.id].classList.add('active');
+        }
+      });
+    },{rootMargin:'-20% 0px -70% 0px'});
+    ids.forEach(function(k){ io.observe(document.getElementById(k)); });
+  }
+})();
+</script>
+
+</body></html>
